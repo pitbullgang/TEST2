@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;700&display=swap" rel="stylesheet" />
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  
+   
   <style>
     /* CSS เฉพาะหน้านี้ (Timeline) */
     .container {
@@ -102,13 +102,23 @@
       color: #fff;
     }
 
-    .timeline-content p {
-      font-size: 1rem;
-      color: rgba(255, 255, 255, 0.8);
-      line-height: 1.6;
+    /* ปรับแต่ง List ภายใน Timeline */
+    .timeline-content ul {
+        margin: 0;
+        padding: 0;
+    }
+    .timeline-content li {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.8; /* เพิ่มระยะห่างบรรทัดให้อ่านง่าย */
+        border-bottom: 1px solid rgba(255,255,255,0.05); /* เพิ่มเส้นคั่นบางๆ (ถ้าชอบ) */
+        padding: 4px 0;
+    }
+    .timeline-content li:last-child {
+        border-bottom: none;
     }
 
-    /* ปรับแต่งสำหรับจอใหญ่ให้เส้นอยู่ตรงกลาง (Optional) */
+    /* ปรับแต่งสำหรับจอใหญ่ให้เส้นอยู่ตรงกลาง */
     @media (min-width: 768px) {
       .timeline::before { left: 50%; transform: translateX(-50%); }
       .timeline-item { width: 50%; margin-left: 0; padding-left: 0; }
@@ -154,8 +164,10 @@
         <div class="timeline-content">
           <span class="date">DECEMBER 2025</span>
           <h3>Story</h3>
-          <p>PITBULL 5 : 0 ETERNITY
-          PITBULL 1 : 7 OChundred</p>
+          <ul style="list-style: none; padding-left: 0;">
+            <li>PITBULL 5 : 0 ETERNITY</li>
+            <li>PITBULL 1 : 7 OChundred</li>
+          </ul>
         </div>
       </div>
 
@@ -164,9 +176,11 @@
         <div class="timeline-content">
           <span class="date">NOVEMBER 2025</span>
           <h3>Story</h3>
-          <p>PITBULL 5 : 1 Be Bare Bear
-          PITBULL 5 : 0 ONLAWENG
-          PITBULL 8 : 0 SUCKSEED</p>
+          <ul style="list-style: none; padding-left: 0;">
+            <li>PITBULL 5 : 1 Be Bare Bear</li>
+            <li>PITBULL 5 : 0 ONLAWENG</li>
+            <li>PITBULL 8 : 0 SUCKSEED</li>
+          </ul>
         </div>
       </div>
 
@@ -175,31 +189,35 @@
         <div class="timeline-content">
           <span class="date">OCTOBER 2025</span>
           <h3>Story</h3>
-          <p>PITBULL 5 : 2 REZET1
-          PITBULL 5 : 0 ATHENS
-          PITBULL 5 : 0 Gilded Fangs
-          PITBULL 6 : 0 LNWROBLOX
-          PITBULL 5 : 0 ATHENS
-          PITBULL 5 : 0 SANG GA MOY
-          PITBULL 5 : 0 INNOCENT
-          PITBULL 5 : 0 HIGH LEVEL
-          PITBULL 10 : 3 SANG GA  MOY
-          PITBULL 10 : 1 HIGH TIER
-          PITBULL 5 : 0 WHYCRY
-          PITBULL 5 : 0 CONFIDENT</p>
+          <ul style="list-style: none; padding-left: 0;">
+            <li>PITBULL 5 : 2 REZET1</li>
+            <li>PITBULL 5 : 0 ATHENS</li>
+            <li>PITBULL 5 : 0 Gilded Fangs</li>
+            <li>PITBULL 6 : 0 LNWROBLOX</li>
+            <li>PITBULL 5 : 0 ATHENS</li>
+            <li>PITBULL 5 : 0 SANG GA MOY</li>
+            <li>PITBULL 5 : 0 INNOCENT</li>
+            <li>PITBULL 5 : 0 HIGH LEVEL</li>
+            <li>PITBULL 10 : 3 SANG GA MOY</li>
+            <li>PITBULL 10 : 1 HIGH TIER</li>
+            <li>PITBULL 5 : 0 WHYCRY</li>
+            <li>PITBULL 5 : 0 CONFIDENT</li>
+          </ul>
         </div>
       </div>
       
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-content">
-          <span class="date">september 2025</span>
+          <span class="date">SEPTEMBER 2025</span>
           <h3>Story</h3>
-          <p>PITBULL 2 : 5 XD GANG
-          PITBULL 4 : 5 FLOYEN</p>
+          <ul style="list-style: none; padding-left: 0;">
+            <li>PITBULL 2 : 5 XD GANG</li>
+            <li>PITBULL 4 : 5 FLOYEN</li>
+          </ul>
         </div>
       </div>
-     
+      
     </div>
   </div>
 
