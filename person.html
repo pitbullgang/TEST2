@@ -192,8 +192,9 @@
       backdrop-filter:blur(6px);
     }
 
-    @media (max-width:900px){.card{flex:0 0 180px;}} /* ลบการปรับขนาดแบบยืดหยุ่นออก */
-    @media (max-width:600px){.card{flex:0 0 160px;}header{font-size:1.8rem;}} /* ปรับขนาด Card สำหรับมือถือให้เล็กลง */
+    /* ปรับ Media Query ให้สอดคล้องกับขนาด Card ใหม่ */
+    @media (max-width:900px){.card{flex:0 0 180px;}} 
+    @media (max-width:600px){.card{flex:0 0 160px;}header{font-size:1.8rem;}} 
   </style>
 </head>
 <body>
