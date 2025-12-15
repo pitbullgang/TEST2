@@ -9,6 +9,12 @@
   <link rel="stylesheet" href="style.css" />
    
   <style>
+    /* ✅ ส่วนสำคัญที่เพิ่มมา: ปลดล็อคให้หน้านี้เลื่อนลงได้ */
+    html, body {
+        overflow-y: auto !important; /* บังคับให้เลื่อนแนวตั้งได้ */
+        height: auto !important;     /* ให้ความสูงยืดตามเนื้อหา */
+    }
+
     /* CSS เฉพาะหน้านี้ (Timeline) */
     .container {
       width: 90%;
@@ -111,7 +117,7 @@
         font-size: 1rem;
         color: rgba(255, 255, 255, 0.8);
         line-height: 1.8; /* เพิ่มระยะห่างบรรทัดให้อ่านง่าย */
-        border-bottom: 1px solid rgba(255,255,255,0.05); /* เพิ่มเส้นคั่นบางๆ (ถ้าชอบ) */
+        border-bottom: 1px solid rgba(255,255,255,0.05); /* เพิ่มเส้นคั่นบางๆ */
         padding: 4px 0;
     }
     .timeline-content li:last-child {
