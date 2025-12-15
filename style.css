@@ -23,14 +23,14 @@
 /* Reset */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* ✅ แก้ไขจุดที่ 1: ลบภาพ GIF ออก เหลือแค่สีพื้นหลังสีดำ */
+/* ✅ แก้ไขจุดสำคัญ 1: ต้องให้พื้นหลังโปร่งใส เพื่อให้มองทะลุเห็นวิดีโอ */
 html, body {
   height: 100%;
   overflow: hidden;
   font-family: var(--font);
   color: var(--text-color);
   position: relative;
-  background-color: #000000; /* สีพื้นหลังสำรองระหว่างรอวิดีโอโหลด */
+  background-color: transparent !important; /* แก้เป็น transparent */
 }
 
 /* Light Glow Bottom */
@@ -196,13 +196,15 @@ footer {
   #circle { width: 180px; height: 180px; filter: blur(50px); }
 }
 
-/* ✅ แก้ไขจุดที่ 2: เพิ่มโค้ดจัดระเบียบวิดีโอไว้ล่างสุด */
+/* ✅ แก้ไขจุดสำคัญ 2: ปรับแต่งวิดีโอพื้นหลัง */
 #bg-video {
   position: fixed;
   right: 0;
   bottom: 0;
   min-width: 100%;
   min-height: 100%;
-  z-index: -1;
+  width: auto;
+  height: auto;
+  z-index: -100; /* ดันไปอยู่หลังสุด */
   object-fit: cover;
 }
