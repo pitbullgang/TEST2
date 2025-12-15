@@ -2,8 +2,8 @@
   --gradient-start: #000000;
   --gradient-end: #1a1a1a;
   --circle-color: rgba(255, 255, 255, 0.1);
-  --button-gradient-start: #222222;
-  --button-gradient-end: #444444;
+  --button-gradient-start: #000000;
+  --button-gradient-end: #000000;
   --button-text-color: #ffffff;
   --font: 'Kanit', sans-serif;
   --text-color: #ffffff;
@@ -23,23 +23,15 @@
 /* Reset */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* ✅ แก้ไขจุดที่ 1: ลบภาพ GIF ออก เหลือแค่สีพื้นหลังสีดำ */
 html, body {
   height: 100%;
   overflow: hidden;
   font-family: var(--font);
   color: var(--text-color);
   position: relative;
-  
-  /* === NEW GIF BACKGROUND === */
-  background-color: #3d0303; /* สีสำรอง (โทนเดียวกับ GIF) */
-  background-image: url('DRAMA_FIVEM.gif'); /* ใช้ไฟล์ GIF ที่อัปโหลดแล้ว */
-  background-size: cover; 
-  background-repeat: no-repeat; 
-  background-attachment: fixed;
-  /* ========================== */
+  background-color: #000000; /* สีพื้นหลังสำรองระหว่างรอวิดีโอโหลด */
 }
-
-/* 🚫 โค้ด body::before ที่เป็นพื้นหลังทับซ้อนถูกลบออกแล้ว */
 
 /* Light Glow Bottom */
 body::after {
@@ -202,4 +194,15 @@ footer {
   .title h2 { font-size: 1.8rem; }
   button { padding: 14px 28px; font-size: 1rem; }
   #circle { width: 180px; height: 180px; filter: blur(50px); }
+}
+
+/* ✅ แก้ไขจุดที่ 2: เพิ่มโค้ดจัดระเบียบวิดีโอไว้ล่างสุด */
+#bg-video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  object-fit: cover;
 }
