@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }).forEach(([k, v]) => document.documentElement.style.setProperty(k, v));
 
   // 🎵 Background Music
-  const music = document.getElementById("bg-music");
+  const music = document.getElementById("PITBULL.mp4");
   music.src = settings.backgroundMusic;
   music.volume = 0.4;
   let isPlaying = true;
@@ -93,4 +93,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("memberBtn").addEventListener("click", () => {
     window.location.href = "person.html";
     });
+
 });
