@@ -6,13 +6,14 @@
   <title>Experience | Pitbull Gang</title>
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;700&display=swap" rel="stylesheet" />
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  
+  <link rel="stylesheet" href="../style.css" />
    
   <style>
-    /* ✅ ส่วนสำคัญที่เพิ่มมา: ปลดล็อคให้หน้านี้เลื่อนลงได้ */
+    /* ตั้งค่าพื้นฐาน */
     html, body {
-        overflow-y: auto !important; /* บังคับให้เลื่อนแนวตั้งได้ */
-        height: auto !important;     /* ให้ความสูงยืดตามเนื้อหา */
+        overflow-y: auto !important;
+        height: auto !important;
     }
 
     /* CSS เฉพาะหน้านี้ (Timeline) */
@@ -51,21 +52,21 @@
       content: '';
       position: absolute;
       top: 0;
-      left: 20px; /* เส้นอยู่ทางซ้ายสำหรับมือถือ */
+      left: 20px;
       height: 100%;
       width: 4px;
       background: rgba(255, 255, 255, 0.2);
       border-radius: 2px;
     }
 
-    /* กล่องข้อความแต่ละอัน */
+    /* กล่องข้อความ */
     .timeline-item {
       position: relative;
       margin-bottom: 40px;
-      padding-left: 50px; /* เว้นที่ให้เส้น */
+      padding-left: 50px;
     }
 
-    /* จุดกลมๆ บนเส้น */
+    /* จุดกลม */
     .timeline-dot {
       position: absolute;
       left: 11px;
@@ -108,7 +109,7 @@
       color: #fff;
     }
 
-    /* ปรับแต่ง List ภายใน Timeline */
+    /* List */
     .timeline-content ul {
         margin: 0;
         padding: 0;
@@ -116,20 +117,19 @@
     .timeline-content li {
         font-size: 1rem;
         color: rgba(255, 255, 255, 0.8);
-        line-height: 1.8; /* เพิ่มระยะห่างบรรทัดให้อ่านง่าย */
-        border-bottom: 1px solid rgba(255,255,255,0.05); /* เพิ่มเส้นคั่นบางๆ */
+        line-height: 1.8;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
         padding: 4px 0;
     }
     .timeline-content li:last-child {
         border-bottom: none;
     }
 
-    /* ปรับแต่งสำหรับจอใหญ่ให้เส้นอยู่ตรงกลาง */
+    /* Responsive */
     @media (min-width: 768px) {
       .timeline::before { left: 50%; transform: translateX(-50%); }
       .timeline-item { width: 50%; margin-left: 0; padding-left: 0; }
       
-      /* สลับซ้ายขวา */
       .timeline-item:nth-child(odd) { 
         padding-right: 40px; 
         text-align: right;
@@ -139,7 +139,6 @@
         padding-left: 40px; 
       }
 
-      /* จุด */
       .timeline-item:nth-child(odd) .timeline-dot { left: auto; right: -11px; }
       .timeline-item:nth-child(even) .timeline-dot { left: -11px; }
     }
@@ -148,13 +147,13 @@
 <body>
 
   <video autoplay muted loop playsinline id="bg-video">
-    <source src="PITBULL.mp4" type="video/mp4">
+    <source src="../PITBULL.mp4" type="video/mp4">
   </video>
 
   <div style="position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:-1;"></div>
 
   <div class="container">
-    <a href="index.html" class="back-btn">
+    <a href="../" class="back-btn">
       <i class='bx bx-arrow-back'></i> Back to Home
     </a>
 
@@ -233,4 +232,3 @@
 
 </body>
 </html>
-
