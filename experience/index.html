@@ -10,16 +10,43 @@
   <link rel="stylesheet" href="../style.css" />
    
   <style>
-    /* ตั้งค่าพื้นฐาน */
+    /* ตั้งค่าพื้นฐานและการทำให้ Video เต็มจอ */
     html, body {
-        overflow-y: auto !important;
-        height: auto !important;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
         font-family: 'Kanit', sans-serif;
         background-color: #000;
-        color: #fff;
     }
 
-    /* CSS เฉพาะหน้านี้ (Timeline) */
+    /* แก้ไข Video ให้เต็มหน้าจอจริงๆ */
+    #bg-video {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -2;
+        transform: translate(-50%, -50%);
+        object-fit: cover; /* บังคับให้วิดีโอครอบคลุมพื้นที่ทั้งหมด */
+    }
+
+    /* Overlay พื้นหลัง */
+    .video-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.65);
+        z-index: -1;
+    }
+
     .container {
       width: 90%;
       max-width: 800px;
@@ -27,54 +54,51 @@
       position: relative;
     }
 
-    /* ส่วนหัวมุมซ้ายบน (Back + Year) */
+    /* ส่วนหัวมุมซ้ายบน - ปรับให้ปุ่ม 2026 อยู่ทางขวา */
     .nav-header {
       display: flex;
-      flex-direction: row; /* จัดวางแนวนอน */
       align-items: center;
-      gap: 10px; /* ระยะห่างระหว่างปุ่ม */
-      margin-bottom: 40px;
+      gap: 12px;
+      margin-bottom: 50px;
     }
 
     /* ปุ่มย้อนกลับ */
     .back-btn {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       color: #fff;
       text-decoration: none;
       font-size: 1rem;
-      padding: 8px 18px;
+      padding: 10px 20px;
       background: rgba(255, 255, 255, 0.1);
       border-radius: 30px;
       transition: all 0.3s ease;
       backdrop-filter: blur(10px);
-      white-space: nowrap;
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
     .back-btn:hover {
       background: rgba(255, 255, 255, 0.2);
     }
 
-    /* ปุ่มเลือกปี (Year Selector) */
-    .year-btn {
-      padding: 8px 20px;
-      background: #ff4d4d; /* สีแดงโดดเด่น */
-      border: 1px solid #ff4d4d;
+    /* ปุ่ม 2026 อยู่ทางขวา */
+    .year-btn-active {
+      padding: 10px 22px;
+      background: #ff4d4d;
       border-radius: 30px;
       color: #fff;
-      text-decoration: none;
       font-weight: 700;
       font-size: 1rem;
-      box-shadow: 0 0 15px rgba(255, 77, 77, 0.4);
-      cursor: default;
+      box-shadow: 0 0 15px rgba(255, 77, 77, 0.5);
+      border: none;
     }
 
     .header-section {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 50px;
     }
 
-    /* เส้น Timeline ตรงกลาง */
+    /* --- สไตล์ Timeline --- */
     .timeline {
       position: relative;
       padding: 20px 0;
@@ -90,7 +114,6 @@
       border-radius: 2px;
     }
 
-    /* กล่องข้อความ */
     .timeline-item {
       position: relative;
       margin-bottom: 40px;
@@ -112,55 +135,55 @@
 
     .timeline-content {
       background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(15px);
       padding: 20px;
-      border-radius: 12px;
+      border-radius: 15px;
       border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s ease;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
     }
     .timeline-content:hover {
       transform: translateY(-5px);
       background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 77, 77, 0.3);
     }
 
     .date {
       font-size: 0.9rem;
       color: #ff4d4d;
-      font-weight: bold;
+      font-weight: 700;
       margin-bottom: 5px;
       display: block;
+      letter-spacing: 1px;
     }
 
     .timeline-content h3 {
-      font-size: 1.4rem;
-      margin-bottom: 10px;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
       color: #fff;
     }
 
     .timeline-content li {
         font-size: 1rem;
-        color: rgba(255, 255, 255, 0.8);
-        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.85);
+        line-height: 2;
         border-bottom: 1px solid rgba(255,255,255,0.05);
-        padding: 4px 0;
+        padding: 5px 0;
     }
-    .timeline-content li:last-child {
-        border-bottom: none;
-    }
+    .timeline-content li:last-child { border-bottom: none; }
 
     footer {
       text-align: center;
-      padding: 40px 0;
-      color: rgba(255, 255, 255, 0.5);
+      padding: 50px 0;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.9rem;
     }
 
-    /* Responsive */
     @media (min-width: 768px) {
       .timeline::before { left: 50%; transform: translateX(-50%); }
       .timeline-item { width: 50%; margin-left: 0; padding-left: 0; }
-      .timeline-item:nth-child(odd) { padding-right: 40px; text-align: right; }
-      .timeline-item:nth-child(even) { margin-left: 50%; padding-left: 40px; }
+      .timeline-item:nth-child(odd) { padding-right: 45px; text-align: right; }
+      .timeline-item:nth-child(even) { margin-left: 50%; padding-left: 45px; }
       .timeline-item:nth-child(odd) .timeline-dot { left: auto; right: -11px; }
       .timeline-item:nth-child(even) .timeline-dot { left: -11px; }
     }
@@ -168,23 +191,23 @@
 </head>
 <body>
 
-  <video autoplay muted loop playsinline id="bg-video" style="position: fixed; top:0; left:0; min-width:100%; min-height:100%; object-fit: cover; z-index:-2;">
+  <video autoplay muted loop playsinline id="bg-video">
     <source src="../PITBULL.mp4" type="video/mp4">
   </video>
 
-  <div style="position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:-1;"></div>
+  <div class="video-overlay"></div>
 
   <div class="container">
     <div class="nav-header">
         <a href="../" class="back-btn">
             <i class='bx bx-arrow-back'></i> Back to Home
         </a>
-        <div class="year-btn">2026</div>
+        <div class="year-btn-active">2026</div>
     </div>
 
     <div class="header-section">
-        <h2 style="font-size: 2.5rem; text-transform: uppercase; letter-spacing: 2px; margin: 0; color: #fff;">Experience</h2>
-        <p style="color: #ccc; margin-top: 5px;">เส้นทางและประสบการณ์ของพวกเรา</p>
+        <h2 style="font-size: 2.8rem; text-transform: uppercase; letter-spacing: 3px; margin: 0; font-weight: 700;">Experience</h2>
+        <p style="color: #bbb; margin-top: 8px; font-size: 1.1rem;">เส้นทางและประสบการณ์ของพวกเรา</p>
     </div>
 
     <div class="timeline">
@@ -193,7 +216,7 @@
         <div class="timeline-content">
           <span class="date">DECEMBER 2025</span>
           <h3>Story</h3>
-          <ul style="list-style: none; padding-left: 0; margin: 0;">
+          <ul style="list-style: none; padding: 0; margin: 0;">
             <li>PITBULL 5 : 0 ETERNITY</li>
             <li>PITBULL 7 : 1 OChundred</li>
           </ul>
@@ -205,7 +228,7 @@
         <div class="timeline-content">
           <span class="date">NOVEMBER 2025</span>
           <h3>Story</h3>
-          <ul style="list-style: none; padding-left: 0; margin: 0;">
+          <ul style="list-style: none; padding: 0; margin: 0;">
             <li>PITBULL 5 : 1 Be Bare Bear</li>
             <li>PITBULL 5 : 0 ONLAWENG</li>
             <li>PITBULL 8 : 0 SUCKSEED</li>
@@ -218,7 +241,7 @@
         <div class="timeline-content">
           <span class="date">OCTOBER 2025</span>
           <h3>Story</h3>
-          <ul style="list-style: none; padding-left: 0; margin: 0;">
+          <ul style="list-style: none; padding: 0; margin: 0;">
             <li>PITBULL 5 : 2 REZET1</li>
             <li>PITBULL 5 : 0 ATHENS</li>
             <li>PITBULL 5 : 0 Gilded Fangs</li>
@@ -240,7 +263,7 @@
         <div class="timeline-content">
           <span class="date">SEPTEMBER 2025</span>
           <h3>Story</h3>
-          <ul style="list-style: none; padding-left: 0; margin: 0;">
+          <ul style="list-style: none; padding: 0; margin: 0;">
             <li>PITBULL 2 : 5 XD GANG</li>
             <li>PITBULL 4 : 5 FLOYEN</li>
           </ul>
