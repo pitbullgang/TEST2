@@ -1,1 +1,438 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HIGH LEVEL | MEMBER LIST</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700;900&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
+  <style>
+    /* =========================================
+       🎨 THEME SETTINGS (เหมือนหน้าหลัก)
+       ========================================= */
+    :root {
+        --neon-pink: #ff1493;    
+        --bright-pink: #ff69b4;  
+        --bg-dark: rgba(0, 0, 0, 0.7);
+        --card-bg: rgba(20, 20, 20, 0.85);
+        --font: 'Kanit', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        font-family: var(--font);
+        color: white;
+        background-color: #000;
+        /* ใช้รูปพื้นหลังเดียวกับหน้าหลัก (ย้อนกลับไป 1 โฟลเดอร์ด้วย ../) */
+        background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../highlevel.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        min-height: 100vh;
+        overflow-y: auto; /* ให้เลื่อนลงได้ */
+    }
+
+    /* =========================================
+       🔘 HEADER & NAVIGATION
+       ========================================= */
+    .back-nav {
+        position: fixed;
+        top: 20px; left: 20px;
+        z-index: 100;
+    }
+
+    .back-btn {
+        background: rgba(0,0,0,0.6);
+        color: var(--neon-pink);
+        border: 1px solid var(--neon-pink);
+        padding: 10px 25px;
+        border-radius: 30px;
+        font-family: var(--font);
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.3s;
+        backdrop-filter: blur(5px);
+    }
+
+    .back-btn:hover {
+        background: var(--neon-pink);
+        color: white;
+        box-shadow: 0 0 15px var(--neon-pink);
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 80px 20px;
+        text-align: center;
+    }
+
+    header {
+        font-size: 3.5rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+        /* เอฟเฟกต์ตัวหนังสือเรืองแสง */
+        text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+        letter-spacing: 2px;
+        animation: fadeInDown 1s ease;
+    }
+
+    /* =========================================
+       🔍 SEARCH BAR (ช่องค้นหา)
+       ========================================= */
+    .search-container {
+        position: relative;
+        max-width: 500px;
+        margin: 0 auto 50px;
+    }
+
+    .search-container i {
+        position: absolute;
+        left: 20px; top: 50%;
+        transform: translateY(-50%);
+        color: var(--bright-pink);
+        font-size: 1.5rem;
+    }
+
+    .search-box {
+        width: 100%;
+        padding: 15px 15px 15px 50px;
+        border-radius: 50px;
+        border: 2px solid rgba(255, 20, 147, 0.3);
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        font-family: var(--font);
+        font-size: 1.1rem;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    .search-box:focus {
+        border-color: var(--neon-pink);
+        box-shadow: 0 0 15px rgba(255, 20, 147, 0.4);
+    }
+
+    /* =========================================
+       👥 MEMBER LIST (GRID SYSTEM)
+       ========================================= */
+    section { margin-bottom: 60px; }
+
+    h2 {
+        font-size: 2rem;
+        color: var(--bright-pink);
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        border-bottom: 2px solid var(--neon-pink);
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    .list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 25px;
+        justify-content: center;
+    }
+
+    /* การ์ดสมาชิก (Neon Glass Style) */
+    .card {
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 20, 147, 0.3);
+        border-radius: 15px;
+        padding: 25px;
+        text-align: center;
+        transition: 0.3s;
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        border-color: var(--neon-pink);
+        box-shadow: 0 0 20px rgba(255, 20, 147, 0.3), inset 0 0 10px rgba(255, 20, 147, 0.1);
+    }
+
+    /* รูปโปรไฟล์ */
+    .profile {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--neon-pink);
+        margin-bottom: 15px;
+        box-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+    }
+
+    .card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+        color: white;
+        text-transform: uppercase;
+    }
+
+    /* ปุ่ม Facebook */
+    .fb-link {
+        display: inline-block;
+        padding: 8px 20px;
+        margin-top: 10px;
+        background: linear-gradient(90deg, #ff1493, #ff69b4);
+        color: white;
+        text-decoration: none;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .fb-link:hover {
+        box-shadow: 0 0 15px var(--neon-pink);
+        transform: scale(1.05);
+    }
+
+    /* =========================================
+       📄 PAGINATION (ปุ่มเปลี่ยนหน้า)
+       ========================================= */
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 30px;
+    }
+
+    .page-btn {
+        background: transparent;
+        border: 2px solid var(--neon-pink);
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-family: var(--font);
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .page-btn.active, .page-btn:hover {
+        background: var(--neon-pink);
+        box-shadow: 0 0 10px var(--neon-pink);
+    }
+
+    footer {
+        margin-top: 50px;
+        font-size: 0.8rem;
+        color: rgba(255,255,255,0.5);
+    }
+
+    /* Animation */
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+        header { font-size: 2.5rem; }
+        .list { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+        .profile { width: 80px; height: 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="list-music" loop>
+    <source src="../bg.mp3" type="audio/mpeg">
+  </audio>
+
+  <nav class="back-nav">
+    <button class="back-btn" onclick="window.location.href='../index.html'">
+      <i class='bx bx-left-arrow-alt'></i> HOME
+    </button>
+  </nav>
+
+  <div class="container">
+    <header>GANG LIST</header>
+
+    <div class="search-container">
+      <i class='bx bx-search'></i>
+      <input type="text" id="searchInput" class="search-box" placeholder="ค้นหารายชื่อสมาชิก...">
+    </div>
+
+    <section id="founderSection">
+      <h2>FOUNDER</h2>
+      <div class="list" id="founderlist"></div>
+    </section>
+
+    <section id="leaderSection">
+      <h2>LEADER</h2>
+      <div class="list" id="leaderlist"></div>
+    </section>
+
+    <section id="memberSection">
+      <h2>MEMBER</h2>
+      <div class="list" id="memberlist"></div>
+      <div id="pagination-controls" class="pagination-container"></div>
+    </section>
+
+    <footer>© HIGH LEVEL GANG. DESIGNED BY KEN.</footer>
+  </div>
+
+  <script>
+    /* =========================================
+       🚀 JAVASCRIPT LOGIC (ทำงานเหมือนเดิมแต่ปรับ Path)
+       ========================================= */
+    const defaultImage = "https://i.pinimg.com/originals/91/ab/f0/91abf0d74be5d9aeb1346178e70dde96.gif";
+    
+    let allData = [];    
+    let allMembers = []; 
+    const itemsPerPage = 8; 
+    let currentPage = 1;
+
+    // --- 1. Anti-Inspect ---
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.onkeydown = function(e) {
+      if (e.keyCode == 123) return false;
+      if (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) return false;
+      if (e.ctrlKey && e.keyCode == 85) return false;
+    };
+
+    // --- 2. Card Creator ---
+    function createCard(person) {
+      const imgSrc = person.image && person.image.trim() !== "" ? person.image : defaultImage;
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <img src="${imgSrc}" class="profile" alt="profile">
+        <h3>${person.name}</h3>
+        <a href="${person.facebook}" target="_blank" class="fb-link">FACEBOOK</a>
+      `;
+      return card;
+    }
+
+    // --- 3. Pagination System ---
+    function displayMembers(membersArray) {
+      const memberList = document.getElementById("memberlist");
+      const founderSection = document.getElementById("founderSection");
+      const leaderSection = document.getElementById("leaderSection");
+      
+      memberList.innerHTML = "";
+      
+      // ถ้าอยู่หน้าแรก ให้โชว์ Founder/Leader ด้วย
+      if (currentPage === 1) {
+          founderSection.style.display = "block";
+          leaderSection.style.display = "block";
+      } else {
+          founderSection.style.display = "none";
+          leaderSection.style.display = "none";
+      }
+
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const paginatedItems = membersArray.slice(start, end);
+      
+      paginatedItems.forEach(p => memberList.appendChild(createCard(p)));
+      renderPagination(membersArray.length);
+    }
+
+    function renderPagination(totalItems) {
+      const totalPages = Math.ceil(totalItems / itemsPerPage);
+      const container = document.getElementById("pagination-controls");
+      container.innerHTML = "";
+      if (totalPages <= 1) return;
+
+      for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement("button");
+        btn.innerText = i;
+        btn.className = (i === currentPage) ? "page-btn active" : "page-btn";
+        btn.onclick = () => {
+          currentPage = i;
+          displayMembers(allMembers);
+          window.scrollTo({ top: 300, behavior: 'smooth' });
+        };
+        container.appendChild(btn);
+      }
+    }
+
+    // --- 4. Search System ---
+    const searchInput = document.getElementById("searchInput");
+
+    searchInput.addEventListener("input", e => {
+        const val = e.target.value.toLowerCase().trim();
+        const fSection = document.getElementById("founderSection");
+        const lSection = document.getElementById("leaderSection");
+        const mSection = document.getElementById("memberSection");
+        const pagination = document.getElementById("pagination-controls");
+
+        const founderList = document.getElementById("founderlist");
+        const leaderList = document.getElementById("leaderlist");
+        const memberList = document.getElementById("memberlist");
+
+        if (val === "") {
+            // คืนค่าเดิม
+            currentPage = 1;
+            founderList.innerHTML = "";
+            leaderList.innerHTML = "";
+            
+            const founders = allData.filter(p => p.permission === "founder");
+            const leaders = allData.filter(p => p.permission === "leader");
+            
+            founders.forEach(p => founderList.appendChild(createCard(p)));
+            leaders.forEach(p => leaderList.appendChild(createCard(p)));
+            displayMembers(allMembers);
+            
+            fSection.style.display = founders.length > 0 ? "block" : "none";
+            lSection.style.display = "block";
+            mSection.style.display = "block";
+            pagination.style.display = "flex";
+
+        } else {
+            // โหมดค้นหา
+            pagination.style.display = "none";
+            founderList.innerHTML = "";
+            leaderList.innerHTML = "";
+            memberList.innerHTML = "";
+
+            const filtered = allData.filter(p => p.name.toLowerCase().includes(val));
+
+            filtered.forEach(p => {
+                const card = createCard(p);
+                if (p.permission === "founder") founderList.appendChild(card);
+                else if (p.permission === "leader") leaderList.appendChild(card);
+                else memberList.appendChild(card);
+            });
+
+            fSection.style.display = founderList.children.length > 0 ? "block" : "none";
+            lSection.style.display = leaderList.children.length > 0 ? "block" : "none";
+            mSection.style.display = memberList.children.length > 0 ? "block" : "none";
+            
+            if (filtered.length === 0) {
+                mSection.style.display = "block";
+                memberList.innerHTML = `<p style="opacity:0.5; width:100%; margin-top:20px;">ไม่พบรายชื่อที่ค้นหา...</p>`;
+            }
+        }
+    });
+
+    // --- 5. Fetch Data ---
+    // ✅ สำคัญ: ใช้ ../person.json เพราะไฟล์ json อยู่โฟลเดอร์นอกสุด
+    fetch("../person.json")
+      .then(res => res.json())
+      .then(data => {
+        allData = data;
+        
+        const founderList = document.getElementById("founderlist");
+        const leaderList = document.getElementById("leaderlist");
+
+        const founders = data.filter(p => p.permission === "founder");
+        const leaders = data.filter(p => p.permission === "leader");
+        allMembers = data.filter(p => p.permission === "member"); 
+
+        founders.forEach(p => founderList.appendChild(createCard(p)));
+        leaders.forEach(p => leaderList.appendChild(createCard(p)));
+        
+        displayMembers(allMembers);
+      })
+      .catch(err => console.error("Error loading JSON:", err));
+  </script>
+</body>
+</html>
