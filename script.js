@@ -1,89 +1,44 @@
-/* =========================================
-   Script.js - High Level Theme (Optimized)
-   ========================================= */
-
 document.addEventListener('DOMContentLoaded', function() {
     
     // ------------------------------------------------
-    // 1. จัดการหน้า Loading Screen
+    // 1. Loading Screen
     // ------------------------------------------------
     const loader = document.getElementById('loading-screen');
-    
     if (loader) {
-        // รอ 0.8 วินาทีเพื่อให้เห็นหน้าโหลดนิดนึง แล้วค่อยจางหาย
         setTimeout(() => {
-            loader.style.opacity = '0'; // สั่งจางลง
-            
-            // รออีก 0.5 วินาที (ตามเวลา transition ใน CSS) แล้วค่อยซ่อนถาวร
-            setTimeout(() => {
-                loader.style.display = 'none';
-            }, 500);
+            loader.style.opacity = '0';
+            setTimeout(() => { loader.style.display = 'none'; }, 500);
         }, 800);
     }
 
     // ------------------------------------------------
-    // 2. จัดการเพลงพื้นหลัง (Background Music)
+    // 2. สร้างฝนผีเสื้อ (Butterfly Rain)
     // ------------------------------------------------
-    const audio = document.getElementById("bg-music");
-    
-    if (audio) {
-        audio.volume = 0.3; // ความดัง 30%
-        
-        // ฟังก์ชันเริ่มเล่นเพลง
-        const playAudio = () => {
-            if (audio.paused) {
-                audio.play().then(() => {
-                    console.log("Music Playing...");
-                }).catch(error => {
-                    console.log("Auto-play blocked, waiting for interaction.");
-                });
-            }
-        };
+    const butterflyContainer = document.getElementById('butterfly-container');
+    const numberOfButterflies = 30; // ปรับจำนวนผีเสื้อตรงนี้
 
-        // พยายามเล่นทันที (เผื่อ Browser อนุญาต)
-        playAudio();
-
-        // ถ้า Browser บล็อก ให้รอคลิกครั้งแรกแล้วค่อยเล่น
-        document.body.addEventListener('click', () => {
-            playAudio();
-        }, { once: true });
-    } else {
-        console.warn("ไม่พบ Element id='bg-music' กรุณาเช็คไฟล์ HTML");
-    }
-
-    // ------------------------------------------------
-    // 3. เอฟเฟกต์วงกลมตามเมาส์ (Smooth Circle Follower)
-    // ------------------------------------------------
-    const circle = document.getElementById('circle');
-
-    if (circle) {
-        let mouseX = window.innerWidth / 2; // เริ่มต้นที่กลางจอ
-        let mouseY = window.innerHeight / 2;
-        let circleX = mouseX;
-        let circleY = mouseY;
-
-        // อัปเดตพิกัดเมาส์เมื่อขยับ
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        function animateCircle() {
-            // สูตร Lerp เพื่อความนุ่มนวล
-            const dx = mouseX - circleX;
-            const dy = mouseY - circleY;
+    if (butterflyContainer) {
+        for (let i = 0; i < numberOfButterflies; i++) {
+            const butterfly = document.createElement('div');
+            butterfly.classList.add('butterfly');
             
-            // 0.15 = ความเร็ว (ยิ่งน้อยยิ่งหน่วงนุ่มๆ)
-            circleX += dx * 0.15; 
-            circleY += dy * 0.15;
+            // สุ่มตำแหน่งเริ่ม (ซ้าย-ขวา)
+            butterfly.style.left = Math.random() * 100 + 'vw';
+            
+            // สุ่มความเร็ว (6 ถึง 14 วินาที)
+            butterfly.style.animationDuration = (Math.random() * 8 + 6) + 's';
+            
+            // สุ่มเวลาดีเลย์ (ไม่ให้ตกลงมาพร้อมกันเป๊ะๆ)
+            butterfly.style.animationDelay = Math.random() * 5 + 's';
+            
+            // สุ่มขนาด (0.6 เท่า ถึง 1.2 เท่า)
+            const scale = Math.random() * 0.6 + 0.6;
+            butterfly.style.transform = `scale(${scale})`;
+            
+            // สุ่มความจาง
+            butterfly.style.opacity = Math.random() * 0.5 + 0.5;
 
-            // อัปเดตตำแหน่ง
-            circle.style.left = circleX + 'px';
-            circle.style.top = circleY + 'px';
-
-            requestAnimationFrame(animateCircle);
+            butterflyContainer.appendChild(butterfly);
         }
-        
-        animateCircle();
     }
 });
