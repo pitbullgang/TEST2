@@ -65,27 +65,18 @@
     .container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 80px 20px;
+        padding: 60px 20px;
         text-align: center;
     }
 
-    /* ✅ ออกแบบหัวข้อใหญ่ใหม่ (GANG LIST) */
-    header {
-        font-size: 4rem; /* ใหญ่ขึ้น */
-        font-weight: 900; /* หนาสุด */
-        font-style: italic; /* ตัวเอียงสไตล์ Racing */
-        text-transform: uppercase;
-        margin-bottom: 30px;
-        letter-spacing: 2px;
-        
-        /* ทำสีตัวหนังสือแบบไล่เฉด (Gradient Text) */
-        background: -webkit-linear-gradient(#ffffff, #ff69b4);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        
-        /* เงาเรืองแสงด้านหลัง */
-        filter: drop-shadow(0 0 15px var(--neon-pink));
-        
+    /* ✅ LOGO หัวข้อหลัก (แทนตัวหนังสือ GANG LIST) */
+    .main-header-logo {
+        max-width: 500px; 
+        width: 90%;
+        height: auto;
+        display: block;
+        margin: 0 auto 30px;
+        filter: drop-shadow(0 0 20px var(--neon-pink)); /* เงาสีชมพู */
         animation: fadeInDown 1s ease;
     }
 
@@ -95,7 +86,7 @@
     .search-container {
         position: relative;
         max-width: 500px;
-        margin: 0 auto 60px; /* เพิ่มระยะห่างด้านล่าง */
+        margin: 0 auto 60px;
     }
 
     .search-container i {
@@ -129,21 +120,18 @@
        ========================================= */
     section { margin-bottom: 60px; }
 
-    /* ✅ ออกแบบหัวข้อย่อยใหม่ (FOUNDER / LEADER / MEMBER) */
+    /* ✅ หัวข้อย่อย (FOUNDER, LEADER, MEMBER) กลับมาเป็นตัวหนังสือ */
     h2 {
         font-size: 2.5rem;
-        font-weight: 900; /* หนาปึ้ก */
-        font-style: italic; /* เอียง */
+        font-weight: 900;
+        font-style: italic;
         color: white;
         margin-bottom: 30px;
         text-transform: uppercase;
         display: inline-block;
         padding: 10px 40px;
         
-        /* ❌ เอาขีดออก (Border Bottom) */
-        border-bottom: none; 
-        
-        /* ✅ ใส่พื้นหลังจางๆ ทรงแคปซูลแทน */
+        /* พื้นหลังจางๆ ทรงแคปซูล */
         background: linear-gradient(90deg, transparent, rgba(255, 20, 147, 0.2), transparent);
         border-radius: 50px;
         
@@ -250,7 +238,7 @@
     @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
     @media (max-width: 600px) {
-        header { font-size: 3rem; }
+        .main-header-logo { max-width: 300px; }
         h2 { font-size: 1.8rem; }
         .list { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
         .profile { width: 80px; height: 80px; }
@@ -270,7 +258,8 @@
   </nav>
 
   <div class="container">
-    <header>GANG LIST</header>
+    
+    <img src="../ganglist_logo.png" alt="GANG LIST" class="main-header-logo">
 
     <div class="search-container">
       <i class='bx bx-search'></i>
