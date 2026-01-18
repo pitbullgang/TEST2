@@ -1,5 +1,5 @@
 /* =========================================
-   PROJECT: HIGH LEVEL (Official Theme - Neon Redesign)
+   PROJECT: HIGH LEVEL (Official Theme - No Circle)
    ========================================= */
 :root {
     --neon-pink: #ff1493;    /* ชมพูเข้ม */
@@ -18,7 +18,7 @@ html, body {
     color: white;
     position: relative;
 
-    /* --- พื้นหลัง (ตามที่คุณต้องการ) --- */
+    /* --- พื้นหลัง --- */
     background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('highlevel.png');
     background-size: cover;       
     background-position: center;  
@@ -53,7 +53,7 @@ html, body {
 }
 
 /* =========================================
-   NAV BAR (ดีไซน์ปุ่มใหม่: Neon Cyber-Gang)
+   NAV BAR (ปุ่ม Neon Cyber-Gang)
    ========================================= */
 .nav-bar {
     position: absolute;
@@ -66,7 +66,7 @@ html, body {
     z-index: 10;
 }
 
-/* ✅ กรอบปุ่มใหม่ */
+/* ✅ กรอบปุ่ม */
 .nav-item {
     text-decoration: none;
     position: relative;
@@ -76,12 +76,10 @@ html, body {
     /* พื้นหลังดำโปร่งแสง */
     background: rgba(0, 0, 0, 0.8);
     
-    /* เส้นขอบสีชมพูจางๆ ก่อนชี้ */
+    /* เส้นขอบสีชมพูจางๆ */
     border: 1px solid rgba(255, 20, 147, 0.5);
     
-    /* ลบ clip-path เดิมออก เพื่อใช้ทรงสี่เหลี่ยมมน */
-    clip-path: none; 
-    border-radius: 8px; /* มุมมนเล็กน้อยให้ดูทันสมัย */
+    border-radius: 8px; /* มุมมนเล็กน้อย */
     
     color: white;
     text-align: center;
@@ -90,7 +88,7 @@ html, body {
     
     /* เงาดำรองพื้น */
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    overflow: hidden; /* เพื่อให้เอฟเฟกต์แสงอยู่ข้างใน */
+    overflow: hidden; 
 }
 
 /* เอฟเฟกต์แสงวิ่งผ่านปุ่ม (Sheen Effect) */
@@ -109,16 +107,9 @@ html, body {
 
 /* เอฟเฟกต์ตอนเอาเมาส์ชี้ */
 .nav-item:hover {
-    /* พื้นหลังสว่างขึ้นเป็นสีชมพูจางๆ */
     background: rgba(255, 20, 147, 0.15);
-    
-    /* เส้นขอบเรืองแสงชัดเจน */
     border-color: var(--neon-pink);
-    
-    /* ตัวหนังสือเด้งขึ้น */
     transform: translateY(-5px);
-    
-    /* แสง Glow ฟุ้งกระจาย */
     box-shadow: 0 0 25px rgba(255, 20, 147, 0.6), inset 0 0 10px rgba(255, 20, 147, 0.3);
 }
 
@@ -134,7 +125,6 @@ html, body {
     font-weight: 900; 
     text-transform: uppercase; 
     letter-spacing: 1.5px;
-    /* เงาตัวหนังสือ */
     text-shadow: 0 2px 5px rgba(0,0,0,0.8);
 }
 
@@ -149,16 +139,9 @@ footer {
     font-size: 0.7rem; color: #888; letter-spacing: 2px; z-index: 10;
 }
 
-/* Loading & Extra */
+/* Loading Screen */
 #loading-screen {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: #000; z-index: 9999;
     display: flex; justify-content: center; align-items: center; flex-direction: column;
 }
-#circle {
-    position: fixed; width: 30px; height: 30px; border: 2px solid var(--neon-pink);
-    border-radius: 50%; pointer-events: none; z-index: 9999;
-    transform: translate(-50%, -50%); display: none;
-    box-shadow: 0 0 10px var(--neon-pink);
-}
-@media (min-width: 768px) { #circle { display: block; } }
