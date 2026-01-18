@@ -4,14 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HIGH LEVEL - Official</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;600;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
     <div id="loading-screen">
-        <div class="loader"></div>
-        <p style="color: #FF69B4; font-weight: bold; letter-spacing: 2px; margin-top: 20px;">LOADING...</p>
+        <div class="loader" style="border: 4px solid #fff; border-top: 4px solid #FF1493; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite;"></div>
+        <p style="color: #FF1493; font-weight: 900; letter-spacing: 2px; margin-top: 20px;">LOADING...</p>
+    </div>
+    <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
+
+    <div class="particles" id="particles">
+        <div class="particle" style="left: 10%; animation-duration: 7s; width: 5px; height: 5px;"></div>
+        <div class="particle" style="left: 20%; animation-duration: 12s; width: 8px; height: 8px;"></div>
+        <div class="particle" style="left: 35%; animation-duration: 5s; width: 4px; height: 4px;"></div>
+        <div class="particle" style="left: 50%; animation-duration: 9s; width: 6px; height: 6px;"></div>
+        <div class="particle" style="left: 65%; animation-duration: 6s; width: 5px; height: 5px;"></div>
+        <div class="particle" style="left: 80%; animation-duration: 11s; width: 9px; height: 9px;"></div>
+        <div class="particle" style="left: 90%; animation-duration: 8s; width: 4px; height: 4px;"></div>
     </div>
 
     <div id="circle"></div>
@@ -28,17 +39,14 @@
         </div>
 
         <div class="button-group">
-            
             <a href="person/" class="glass-btn">
                 <div class="icon">👥</div>
                 <span>MEMBER</span>
             </a>
-
             <a href="experience/" class="glass-btn">
                 <div class="icon">✨</div>
                 <span>STORY</span>
             </a>
-
         </div>
     </div>
 
