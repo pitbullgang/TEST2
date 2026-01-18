@@ -10,42 +10,56 @@
 
   <style>
     /* =========================================
-       🎨 THEME SETTINGS (ระบบเปลี่ยนธีม)
+       🎨 THEME SETTINGS
        ========================================= */
     :root {
-        /* 🎀 ธีม 1: High Level (Pink) */
-        --main-color: #ff1493;       /* ชมพูเข้ม */
-        --highlight-color: #ff69b4;  /* ชมพูสว่าง */
-        --bg-filter: hue-rotate(0deg); /* สีพื้นหลังปกติ */
+        /* 🎀 ธีม 1: Pink (ค่าเริ่มต้น) */
+        --main-color: #ff1493;       
+        --highlight-color: #ff69b4;  
         --font: 'Kanit', sans-serif;
         --card-bg: rgba(20, 20, 20, 0.85);
     }
 
-    /* 🌈 ธีม 2: High Level Two (Pastel) */
+    /* 🌈 ธีม 2: Pastel (เมื่อเปลี่ยนธีม) */
     body.theme-pastel {
-        --main-color: #7fffd4;       /* สีมิ้นต์ (Aquamarine) เข้ากับโลโก้ 2 */
-        --highlight-color: #e6e6fa;  /* สีม่วงลาเวนเดอร์ */
-        --bg-filter: hue-rotate(40deg) brightness(1.2); /* ปรับสีพื้นหลังให้เป็นโทนพาสเทล */
+        --main-color: #7fffd4;       /* สีมิ้นต์ (Aquamarine) */
+        --highlight-color: #e6e6fa;  /* สีลาเวนเดอร์ */
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* =========================================
+       🖼️ BACKGROUND LAYER (หัวใจสำคัญของความสมูท)
+       ========================================= */
+    #bg-fixed {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: -1; /* อยู่หลังสุด */
+        
+        /* ใช้รูป highlevel.png รูปเดียวตลอดกาล */
+        background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../highlevel.png');
+        background-size: cover;
+        background-position: center;
+        
+        /* ✅ คำสั่งนี้ทำให้การเปลี่ยนสีสมูท (0.8 วินาที) */
+        transition: filter 0.8s ease-in-out;
+        
+        /* ค่าเริ่มต้น (สีปกติ) */
+        filter: hue-rotate(0deg);
+    }
+
+    /* เมื่อเปลี่ยนธีม -> ให้หมุนวงล้อสีไปทางสีเขียว/ฟ้า */
+    body.theme-pastel #bg-fixed {
+        filter: hue-rotate(140deg) brightness(1.2) saturate(1.1);
+    }
 
     body {
         font-family: var(--font);
         color: white;
         background-color: #000;
-        
-        /* ✅ ใช้รูปพื้นหลังหลักจากโฟลเดอร์นอก */
-        background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../highlevel.png');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
         min-height: 100vh;
         overflow-y: auto;
-        
-        /* เอฟเฟกต์เปลี่ยนสีพื้นหลัง */
-        transition: filter 0.5s ease;
-        filter: var(--bg-filter);
     }
 
     /* =========================================
@@ -62,7 +76,9 @@
         font-family: var(--font);
         font-weight: 700;
         cursor: pointer;
-        transition: 0.3s;
+        
+        /* Transition ให้ปุ่มเปลี่ยนสีสมูทด้วย */
+        transition: all 0.5s ease;
         backdrop-filter: blur(5px);
     }
 
@@ -79,7 +95,7 @@
         text-align: center;
     }
 
-    /* ✅ LOGO หัวข้อหลัก (กดเพื่อเปลี่ยนธีม) */
+    /* ✅ LOGO หัวข้อหลัก */
     .main-header-logo {
         max-width: 350px; 
         width: 90%;
@@ -87,13 +103,12 @@
         display: block;
         margin: 0 auto 30px;
         
-        /* เงาเปลี่ยนสีตามธีม */
+        /* Transition เงา */
+        transition: filter 0.5s ease;
         filter: drop-shadow(0 0 20px var(--main-color)); 
-        animation: floatLogo 3s ease-in-out infinite;
         
-        /* เคอร์เซอร์รูปมือ */
+        animation: floatLogo 3s ease-in-out infinite;
         cursor: pointer;
-        transition: transform 0.2s ease, filter 0.5s ease;
     }
 
     .main-header-logo:active { transform: scale(0.95); }
@@ -112,6 +127,7 @@
     .search-container i {
         position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
         color: var(--highlight-color); font-size: 1.5rem;
+        transition: color 0.5s ease;
     }
 
     .search-box {
@@ -119,7 +135,9 @@
         border: 2px solid var(--main-color);
         background: rgba(0, 0, 0, 0.6);
         color: white; font-family: var(--font); font-size: 1.1rem;
-        outline: none; transition: 0.3s; opacity: 0.8;
+        outline: none; 
+        transition: all 0.5s ease; /* สมูท */
+        opacity: 0.8;
     }
 
     .search-box:focus { opacity: 1; box-shadow: 0 0 15px var(--main-color); }
@@ -137,7 +155,7 @@
         border-radius: 50px;
         text-shadow: 0 0 10px var(--main-color); letter-spacing: 2px;
         border-bottom: 3px solid var(--main-color);
-        transition: 0.5s ease;
+        transition: all 0.5s ease; /* สมูท */
     }
 
     .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; justify-content: center; }
@@ -146,7 +164,8 @@
         background: var(--card-bg);
         border: 1px solid var(--main-color);
         border-radius: 15px; padding: 25px; text-align: center;
-        transition: 0.3s; backdrop-filter: blur(10px);
+        transition: border-color 0.5s ease, transform 0.3s; /* สมูท */
+        backdrop-filter: blur(10px);
         position: relative; overflow: hidden;
     }
 
@@ -158,7 +177,8 @@
     .profile {
         width: 100px; height: 100px; border-radius: 50%; object-fit: cover;
         border: 3px solid var(--main-color); margin-bottom: 15px;
-        box-shadow: 0 0 15px var(--main-color); transition: 0.5s ease;
+        box-shadow: 0 0 15px var(--main-color); 
+        transition: all 0.5s ease; /* สมูท */
     }
 
     .card h3 { font-size: 1.3rem; margin-bottom: 10px; color: white; text-transform: uppercase; }
@@ -167,7 +187,8 @@
         display: inline-block; padding: 8px 20px; margin-top: 10px;
         background: linear-gradient(90deg, var(--main-color), var(--highlight-color));
         color: white; text-decoration: none; border-radius: 20px;
-        font-size: 0.9rem; font-weight: bold; transition: 0.3s;
+        font-size: 0.9rem; font-weight: bold; 
+        transition: all 0.5s ease; /* สมูท */
     }
 
     .fb-link:hover { box-shadow: 0 0 15px var(--main-color); transform: scale(1.05); }
@@ -180,7 +201,8 @@
     .page-btn {
         background: transparent; border: 2px solid var(--main-color); color: white;
         width: 40px; height: 40px; border-radius: 50%;
-        font-family: var(--font); font-weight: bold; cursor: pointer; transition: 0.3s;
+        font-family: var(--font); font-weight: bold; cursor: pointer; 
+        transition: all 0.5s ease; /* สมูท */
     }
 
     .page-btn.active, .page-btn:hover {
@@ -201,6 +223,8 @@
   <audio id="list-music" loop>
     <source src="../bg.mp3" type="audio/mpeg">
   </audio>
+
+  <div id="bg-fixed"></div>
 
   <nav class="back-nav">
     <button class="back-btn" onclick="window.location.href='../index.html'">
@@ -240,28 +264,27 @@
     document.addEventListener('DOMContentLoaded', function() {
         
         // =========================================
-        // 🚀 THEME SWITCHER (เหมือนหน้าแรก)
+        // 🚀 THEME SWITCHER (สมูทแบบมืออาชีพ)
         // =========================================
         const logoImg = document.getElementById('theme-logo');
         
         if (logoImg) {
             logoImg.addEventListener('click', function() {
-                // 1. สลับ Class 'theme-pastel' ที่ Body
+                // 1. ใส่ Class เพื่อเปลี่ยนสีพื้นหลังและปุ่ม (CSS Transition จะทำงานเอง)
                 document.body.classList.toggle('theme-pastel');
 
-                // 2. เช็คธีมแล้วเปลี่ยนรูปโลโก้
+                // 2. เปลี่ยนรูปโลโก้
+                // (ถ้าอยากให้โลโก้สมูทด้วย ต้องใช้ Opacity แต่วิธีสลับ src ก็เร็วพอใช้ได้)
                 if (document.body.classList.contains('theme-pastel')) {
-                    // 🌈 ธีม Pastel -> เปลี่ยนเป็น ganglist_logo_2.png
                     logoImg.src = 'ganglist_logo_2.png'; 
                 } else {
-                    // 🎀 ธีม Pink -> กลับมาใช้ ganglist_logo.png
                     logoImg.src = 'ganglist_logo.png'; 
                 }
             });
         }
 
         // =========================================
-        // ⚙️ ส่วนที่เหลือเหมือนเดิม (Data, Search, Pagination)
+        // ⚙️ DATA LOADING LOGIC
         // =========================================
         const defaultImage = "https://i.pinimg.com/originals/91/ab/f0/91abf0d74be5d9aeb1346178e70dde96.gif";
         let allData = [];    
