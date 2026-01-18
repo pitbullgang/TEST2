@@ -9,8 +9,15 @@
     "facebook": "https://www.facebook.com/Phawharakkaimaipen",
     "permission": "member",
     "image": "https://img5.pic.in.th/file/secure-sv1/image84c8c38b6cbe97ab.png"
+  },
+  {
+    "name": "TEST",
+    "facebook": "https://www.facebook.com/Phawharakkaimaipen",
+    "permission": "founder",
+    "image": "https://img5.pic.in.th/file/secure-sv1/image84c8c38b6cbe97ab.png"
   }
 ]
+
 
 
 
