@@ -1,5 +1,5 @@
 /* =========================================
-   PROJECT: HIGH LEVEL (Official Theme - No Circle)
+   PROJECT: HIGH LEVEL (Neon Theme + Butterfly Rain)
    ========================================= */
 :root {
     --neon-pink: #ff1493;    /* ชมพูเข้ม */
@@ -25,6 +25,48 @@ html, body {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
+
+/* =========================================
+   🦋 BUTTERFLY RAIN (ใช้รูป high.png)
+   ========================================= */
+#butterfly-container {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    overflow: hidden;
+    z-index: 1; /* อยู่เหนือพื้นหลัง */
+    pointer-events: none; /* คลิกทะลุได้ */
+}
+
+.butterfly {
+    position: absolute;
+    top: -60px;
+    width: 40px;  /* ✅ ปรับขนาดตามความเหมาะสม */
+    height: 40px;
+    
+    /* ✅ เรียกใช้ไฟล์รูป high.png */
+    background-image: url('high.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    
+    opacity: 0.8;
+    animation: flutterDown linear infinite;
+}
+
+@keyframes flutterDown {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+    10% { opacity: 0.9; }
+    100% {
+        transform: translateY(110vh) rotate(360deg) scale(1);
+        opacity: 0;
+    }
+}
+
+/* =========================================
+   MAIN CONTENT
+   ========================================= */
 
 /* --- โลโก้หลักตรงกลาง --- */
 .center-logo-container {
