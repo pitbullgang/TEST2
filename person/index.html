@@ -13,18 +13,17 @@
        🎨 THEME SETTINGS
        ========================================= */
     :root {
-        /* 🎀 ธีม 1: Pink (ค่าเริ่มต้น) */
+        /* 🎀 ธีม 1: Pink */
         --main-color: #ff1493;       
         --highlight-color: #ff69b4;  
         --font: 'Kanit', sans-serif;
         --card-bg: rgba(20, 20, 20, 0.85);
     }
 
-    /* 🌈 ธีม 2: Pastel (แก้ไขใหม่ให้ตรงหน้าแรก) */
+    /* 🌈 ธีม 2: Pastel (Gold/Cream) */
     body.theme-pastel {
-        /* ✅ แก้เป็นสีทอง (Gold) ให้เหมือนปุ่มหน้าแรก */
-        --main-color: #ffd700;       
-        --highlight-color: #fffacd;  /* สีครีมสว่าง */
+        --main-color: #ffd700;       /* สีทอง */
+        --highlight-color: #fffacd;  /* สีครีม */
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -37,17 +36,13 @@
         top: 0; left: 0;
         width: 100%; height: 100%;
         z-index: -1;
-        
-        /* รูปพื้นหลังหลัก */
         background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../highlevel.png');
         background-size: cover;
         background-position: center;
-        
         transition: filter 0.8s ease-in-out;
         filter: hue-rotate(0deg);
     }
 
-    /* ✅ แก้ไข: หมุนสีไป 240 องศา จะได้สีน้ำเงิน/ม่วง (Blue/Indigo) เหมือนหน้าแรก */
     body.theme-pastel #bg-fixed {
         filter: hue-rotate(240deg) brightness(1.3) saturate(1.1);
     }
@@ -58,6 +53,73 @@
         background-color: #000;
         min-height: 100vh;
         overflow-y: auto;
+    }
+
+    /* =========================================
+       ✨ LOGO ANIMATION (ระบบวาปข้ามมิติ)
+       ========================================= */
+    .main-header-logo {
+        max-width: 350px; 
+        width: 90%;
+        height: auto;
+        display: block;
+        margin: 0 auto 30px;
+        cursor: pointer;
+        
+        /* สถานะปกติ: ลอยไปมา */
+        filter: drop-shadow(0 0 20px var(--main-color)); 
+        animation: floatLogo 3s ease-in-out infinite;
+        transition: filter 0.3s;
+    }
+
+    /* อนิเมชั่นลอย (ปกติ) */
+    @keyframes floatLogo {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0px); }
+    }
+
+    /* 🚀 ท่าไม้ตาย 1: วาปหายไป (Warp Out) */
+    .warp-out {
+        animation: warpOutEffect 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards !important;
+    }
+
+    @keyframes warpOutEffect {
+        0% {
+            transform: scale(1) rotate(0deg);
+            filter: drop-shadow(0 0 20px var(--main-color));
+            opacity: 1;
+        }
+        50% {
+            /* แสงจ้า + หมุน */
+            filter: brightness(5) drop-shadow(0 0 50px white);
+            opacity: 0.8;
+        }
+        100% {
+            /* หดเหลือ 0 + หมุนติ้ว */
+            transform: scale(0) rotate(720deg);
+            filter: brightness(10);
+            opacity: 0;
+        }
+    }
+
+    /* 🚀 ท่าไม้ตาย 2: วาปกลับมา (Warp In) */
+    .warp-in {
+        animation: warpInEffect 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
+    }
+
+    @keyframes warpInEffect {
+        0% {
+            /* เริ่มจากใหญ่มาก (เหมือนพุ่งเข้าหาจอ) */
+            transform: scale(3);
+            filter: blur(20px) brightness(5);
+            opacity: 0;
+        }
+        100% {
+            transform: scale(1);
+            filter: drop-shadow(0 0 20px var(--main-color));
+            opacity: 1;
+        }
     }
 
     /* =========================================
@@ -80,7 +142,7 @@
 
     .back-btn:hover {
         background: var(--main-color);
-        color: white; /* หรือ color: #000 ถ้าอยากให้ตัวหนังสือดำตอนชี้สีทอง */
+        color: white;
         box-shadow: 0 0 15px var(--main-color);
     }
 
@@ -91,28 +153,8 @@
         text-align: center;
     }
 
-    /* ✅ LOGO */
-    .main-header-logo {
-        max-width: 350px; 
-        width: 90%;
-        height: auto;
-        display: block;
-        margin: 0 auto 30px;
-        transition: filter 0.5s ease;
-        filter: drop-shadow(0 0 20px var(--main-color)); 
-        animation: floatLogo 3s ease-in-out infinite;
-        cursor: pointer;
-    }
-    .main-header-logo:active { transform: scale(0.95); }
-
-    @keyframes floatLogo {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-15px); }
-        100% { transform: translateY(0px); }
-    }
-
     /* =========================================
-       🔍 SEARCH BAR
+       🔍 SEARCH BAR & LIST
        ========================================= */
     .search-container { position: relative; max-width: 500px; margin: 0 auto 60px; }
     .search-container i {
@@ -128,9 +170,6 @@
     }
     .search-box:focus { opacity: 1; box-shadow: 0 0 15px var(--main-color); }
 
-    /* =========================================
-       👥 MEMBER LIST STYLES
-       ========================================= */
     section { margin-bottom: 60px; }
     h2 {
         font-size: 2.5rem; font-weight: 900; font-style: italic;
@@ -144,12 +183,10 @@
     }
     .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; justify-content: center; }
     .card {
-        background: var(--card-bg);
-        border: 1px solid var(--main-color);
+        background: var(--card-bg); border: 1px solid var(--main-color);
         border-radius: 15px; padding: 25px; text-align: center;
         transition: border-color 0.5s ease, transform 0.3s;
-        backdrop-filter: blur(10px);
-        position: relative; overflow: hidden;
+        backdrop-filter: blur(10px); position: relative; overflow: hidden;
     }
     .card:hover { transform: translateY(-10px); box-shadow: 0 0 25px var(--main-color), inset 0 0 15px var(--main-color); }
     .profile {
@@ -165,10 +202,6 @@
         font-size: 0.9rem; font-weight: bold; transition: all 0.5s ease;
     }
     .fb-link:hover { box-shadow: 0 0 15px var(--main-color); transform: scale(1.05); }
-
-    /* =========================================
-       📄 PAGINATION & FOOTER
-       ========================================= */
     .pagination-container { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
     .page-btn {
         background: transparent; border: 2px solid var(--main-color); color: white;
@@ -178,8 +211,7 @@
     .page-btn.active, .page-btn:hover { background: var(--main-color); box-shadow: 0 0 10px var(--main-color); }
     footer { margin-top: 50px; font-size: 0.8rem; color: rgba(255,255,255,0.5); }
     @media (max-width: 600px) {
-        .main-header-logo { max-width: 280px; }
-        h2 { font-size: 1.8rem; padding: 10px 20px; }
+        .main-header-logo { max-width: 280px; } h2 { font-size: 1.8rem; padding: 10px 20px; }
         .list { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
     }
   </style>
@@ -222,7 +254,7 @@
       <div id="pagination-controls" class="pagination-container"></div>
     </section>
 
-    <footer> HIGH LEVEL GANG © DESIGNED BY KEN </footer>
+    <footer>© HIGH LEVEL GANG. DESIGNED BY KEN.</footer>
   </div>
 
   <script>
@@ -231,9 +263,8 @@
         const logoImg = document.getElementById('theme-logo');
         const body = document.body;
 
-        // ✅ 1. โหลดธีมที่บันทึกไว้
+        // ✅ 1. โหลดธีม
         const currentTheme = localStorage.getItem('siteTheme'); 
-
         if (currentTheme === 'pastel') {
             body.classList.add('theme-pastel');
             if(logoImg) logoImg.src = 'ganglist_logo_2.png'; 
@@ -242,22 +273,45 @@
             if(logoImg) logoImg.src = 'ganglist_logo.png'; 
         }
 
-        // ✅ 2. กดเปลี่ยนธีมในหน้านี้
+        // ✅ 2. สคริปต์อนิเมชั่น "Warp Jump"
+        let isAnimating = false; // ป้องกันการกดรัวๆ
+
         if (logoImg) {
             logoImg.addEventListener('click', function() {
-                body.classList.toggle('theme-pastel');
+                if (isAnimating) return; // ถ้าวาปอยู่ ห้ามกดซ้ำ
+                isAnimating = true;
 
-                if (body.classList.contains('theme-pastel')) {
-                    logoImg.src = 'ganglist_logo_2.png'; 
-                    localStorage.setItem('siteTheme', 'pastel'); 
-                } else {
-                    logoImg.src = 'ganglist_logo.png'; 
-                    localStorage.setItem('siteTheme', 'default'); 
-                }
+                // 1. เริ่มท่าไม้ตาย: หมุนติ้วแล้วหายไป (Warp Out)
+                logoImg.classList.add('warp-out');
+
+                // 2. รอให้หายไปก่อน (600ms) แล้วค่อยเปลี่ยนธีม
+                setTimeout(() => {
+                    // --- ช่วงเปลี่ยนรูปและสี ---
+                    body.classList.toggle('theme-pastel');
+                    
+                    if (body.classList.contains('theme-pastel')) {
+                        logoImg.src = 'ganglist_logo_2.png'; 
+                        localStorage.setItem('siteTheme', 'pastel'); 
+                    } else {
+                        logoImg.src = 'ganglist_logo.png'; 
+                        localStorage.setItem('siteTheme', 'default'); 
+                    }
+
+                    // 3. เริ่มท่าไม้ตาย 2: พุ่งกลับมา (Warp In)
+                    logoImg.classList.remove('warp-out');
+                    logoImg.classList.add('warp-in');
+
+                    // 4. จบอนิเมชั่น: เอาคลาสออกเพื่อให้กลับมาลอย (Float) เหมือนเดิม
+                    setTimeout(() => {
+                        logoImg.classList.remove('warp-in');
+                        isAnimating = false; // กดใหม่ได้แล้ว
+                    }, 800); // รอจังหวะกลับมาเสร็จ
+
+                }, 550); // เวลาของ warp-out
             });
         }
 
-        // --- ส่วนโหลดข้อมูล (เหมือนเดิม) ---
+        // --- ส่วนโหลดข้อมูล ---
         const defaultImage = "https://i.pinimg.com/originals/91/ab/f0/91abf0d74be5d9aeb1346178e70dde96.gif";
         let allData = []; let allMembers = []; 
         const itemsPerPage = 8; let currentPage = 1;
