@@ -1,166 +1,51 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pitbull Gang</title>
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-  
-  <style>
-    /* ปรับปรุง CSS พื้นฐานสำหรับธีมใหม่ */
-    html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        font-family: 'Kanit', sans-serif;
-        /* ไล่สีจากดำด้านล่าง ขึ้นไปขาวด้านบน */
-        background: linear-gradient(to top, #000000 0%, #ffffff 100%);
-        background-attachment: fixed;
-        overflow: hidden;
-    }
-
-    /* Loading Screen */
-    #loading-screen {
-        background: #fff; /* เริ่มต้นด้วยสีขาวเพื่อให้รับกับด้านบน */
-        color: #000;
-    }
-
-    /* Custom Circle Cursor (ถ้ามีใน JS) */
-    #circle {
-        border: 2px solid #ff4d4d;
-    }
-
-    .center-container {
-        position: relative;
-        z-index: 10;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        text-align: center;
-    }
-
-    /* ปรับแต่งหัวข้อ */
-    .title {
-        margin-bottom: 50px;
-    }
-    .title h2 {
-        font-size: 4.5rem;
-        font-weight: 900;
-        text-transform: uppercase;
-        color: #1a1a1a; /* สีเข้มเพื่อให้ชัดบนพื้นหลังขาว */
-        margin: 0;
-        letter-spacing: -2px;
-        line-height: 1;
-        text-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-    }
-    .title p {
-        font-size: 1.2rem;
-        color: #ff4d4d; /* สี Accent แดง */
-        letter-spacing: 5px;
-        margin-top: 10px;
-        font-weight: 600;
-    }
-
-    /* ปรับแต่งปุ่มให้ดูเท่ */
-    .button-group {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        width: 100%;
-        max-width: 300px;
-    }
-
-    button {
-        width: 100%;
-        padding: 15px 30px;
-        font-size: 1.1rem;
-        font-family: 'Kanit', sans-serif;
-        font-weight: 600;
-        color: #fff;
-        background: #000; /* ปุ่มสีดำตัดกับพื้นหลังขาว/เทา */
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    }
-
-    button:hover {
-        transform: scale(1.05) translateY(-5px);
-        background: #ff4d4d; /* เปลี่ยนเป็นสีแดงเวลา Hover */
-        box-shadow: 0 15px 30px rgba(255, 77, 77, 0.4);
-    }
-
-    button span {
-        letter-spacing: 1px;
-    }
-
-    button svg {
-        transition: transform 0.3s ease;
-    }
-
-    button:hover svg {
-        transform: translateX(5px);
-    }
-
-    /* Footer อยู่ด้านล่างซึ่งเป็นพื้นที่สีดำ */
-    footer {
-        position: absolute;
-        bottom: 30px;
-        width: 100%;
-        text-align: center;
-        color: rgba(255, 255, 255, 0.5); /* สีขาวจางๆ */
-        font-size: 0.9rem;
-        letter-spacing: 1px;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HIGH LEVEL - Official</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;600;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <div id="loading-screen">
-    <div class="loader"></div>
-    <p style="margin-top: 15px; letter-spacing: 2px;">LOADING...</p>
-  </div>
-
-  <div id="circle"></div>
-
-  <div class="center-container">
-    
-    <div class="title">
-      <h2>Pitbull Gang</h2>
-      <p>PERSON IN MY GANG</p>
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <p style="color: #FF69B4; font-weight: bold; letter-spacing: 2px; margin-top: 20px;">LOADING...</p>
     </div>
 
-    <div class="button-group">
+    <div id="circle"></div>
+
+    <audio id="bg-music" loop>
+        <source src="bg.mp3" type="audio/mp3">
+    </audio>
+
+    <div class="center-container">
         
-        <button onclick="window.location.href='person/'">
-          <span>Person List</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-        </button>
+        <div class="logo-area">
+            <img src="Highlevel1.png" alt="High Level Logo" class="main-logo">
+            <p class="subtitle">The Next Generation</p>
+        </div>
 
-        <button onclick="window.location.href='experience/'">
-          <span>Experience</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-          </svg>
-        </button>
+        <div class="button-group">
+            
+            <a href="person/" class="glass-btn">
+                <div class="icon">👥</div>
+                <span>MEMBER</span>
+            </a>
 
+            <a href="experience/" class="glass-btn">
+                <div class="icon">✨</div>
+                <span>STORY</span>
+            </a>
+
+        </div>
     </div>
-  </div>
 
-  <footer>
-    <p>© PowerBuy DekPitBull. DESIGNED BY KEN.</p>
-  </footer>
+    <footer>
+        <p>© PowerBuy DekPitBull. DESIGNED BY KEN.</p>
+    </footer>
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
