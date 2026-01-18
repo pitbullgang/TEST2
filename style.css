@@ -1,10 +1,8 @@
 /* =========================================
-   🎨 Theme: High Level - Black BG & White Glass Buttons
+   PROJECT: HIGH LEVEL (Official Theme)
    ========================================= */
 :root {
-    --neon-pink: #ff1493;    /* ชมพูเข้ม (สำหรับตัวหนังสือในปุ่ม) */
-    --soft-pink: #ff69b4;    /* ชมพูหวาน (สำหรับเงา) */
-    --text-color: #ffffff;   /* สีตัวหนังสือทั่วไป (ขาว) */
+    --neon-pink: #ff1493;    /* สีธีมชมพู */
     --font: 'Kanit', sans-serif;
 }
 
@@ -15,46 +13,49 @@ html, body {
     width: 100%;
     overflow: hidden; /* ห้ามเลื่อนหน้าจอ */
     font-family: var(--font);
-    
-    /* พื้นหลังสีดำ และมีสีขาวจางๆ คลุมทับรูป */
-    background-color: #000000;
-    color: var(--text-color);
+    background-color: #000;
+    color: white;
     position: relative;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('highlevel.png');
-    background-size: cover;       
-    background-position: center;  
+
+    /* --- ส่วนที่ 1: พื้นหลัง (ใช้รูป highlevel.png) --- */
+    /* ใส่สีดำทับ 85% เพื่อให้พื้นหลังมืดๆ ไม่แย่งซีนโลโก้หลัก */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('highlevel.png');
+    background-size: cover;       /* ขยายเต็มจอ */
+    background-position: center;  /* จัดกึ่งกลาง */
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
-/* --- โลโก้หลักตรงกลาง (อยู่ชั้นบนสุด ไม่โดนทับ) --- */
+/* --- ส่วนที่ 2: โลโก้หลักตรงกลาง (ขยับได้) --- */
 .center-logo-container {
     position: absolute;
-    top: 40%;       
+    top: 40%;       /* ขยับขึ้นมาจากกึ่งกลางนิดหน่อย */
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
     display: flex;
     justify-content: center;
-    z-index: 20; /* ✅ เพิ่ม Z-Index ให้สูงกว่าปุ่ม เพื่อความชัวร์ว่าไม่โดนทับ */
+    z-index: 5;     /* อยู่เหนือพื้นหลัง */
 }
 
 .main-logo {
     width: 100%;
-    max-width: 550px; 
+    max-width: 500px; /* ขนาดโลโก้หลัก */
     height: auto;
-    filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.5)); 
+    filter: drop-shadow(0 0 25px rgba(255, 20, 147, 0.4)); /* เงาสีชมพูฟุ้งๆ */
+    
+    /* อนิเมชั่นลอยขึ้นลง */
     animation: floatLogo 3s ease-in-out infinite;
 }
 
 @keyframes floatLogo {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); } 
+    50% { transform: translateY(-15px); } /* ลอยขึ้น */
     100% { transform: translateY(0px); }
 }
 
 /* =========================================
-   🔘 New Button Design (ปุ่มกดแบบ White Glass - กรอบขาว)
+   NAV BAR (เมนูด้านล่าง)
    ========================================= */
 .nav-bar {
     position: absolute;
@@ -64,76 +65,47 @@ html, body {
     display: flex;
     justify-content: center;
     gap: 30px;
-    z-index: 10; /* อยู่ชั้นล่างโลโก้ */
+    z-index: 10;
 }
 
-/* ✅ ดีไซน์ปุ่มใหม่: กรอบขาว พื้นหลังขาวโปร่งแสง (Glassmorphism) */
 .nav-item {
     text-decoration: none;
-    position: relative;
-    width: 180px;
+    color: white;
+    background: linear-gradient(180deg, rgba(50,50,50,0.9) 0%, rgba(0,0,0,1) 100%);
+    width: 160px;
     padding: 15px 0;
-    
-    /* พื้นหลังสีขาวโปร่งแสง (ไม่ใช่เทา) */
-    background: rgba(255, 255, 255, 0.15); 
-    /* เอฟเฟกต์กระจกเบลอ */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    
-    /* กรอบสีขาวชัดเจน */
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    
-    /* เปลี่ยนสีตัวหนังสือในปุ่มเป็นสีชมพู เพื่อให้เด่นบนพื้นขาว */
-    color: var(--neon-pink); 
-    
-    border-radius: 50px; /* ทรงแคปซูลมน */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    border-top: 2px solid #555;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
     text-align: center;
     transition: all 0.3s ease;
-    
-    /* เงาฟุ้งๆ สีขาวผสมชมพู */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
 
-/* เอฟเฟกต์ตอนเอาเมาส์ชี้ */
 .nav-item:hover {
-    transform: translateY(-5px) scale(1.05);
-    /* พื้นหลังขาวขึ้นเมื่อชี้ */
-    background: rgba(255, 255, 255, 0.25); 
-    border-color: var(--neon-pink); /* ขอบเปลี่ยนเป็นสีชมพู */
-    box-shadow: 0 0 20px rgba(255, 20, 147, 0.4); /* เงาสีชมพู */
+    background: linear-gradient(180deg, rgba(255, 20, 147, 0.3) 0%, rgba(0,0,0,1) 100%);
+    border-top-color: var(--neon-pink);
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(255, 20, 147, 0.4);
 }
 
-.nav-item .icon { 
-    font-size: 1.6rem; 
-    margin-bottom: 5px;
-    filter: drop-shadow(0 2px 2px rgba(255, 20, 147, 0.3));
-}
-
-.nav-item span { 
-    font-size: 1.1rem; 
-    font-weight: 800; 
-    text-transform: uppercase; 
-    letter-spacing: 1px;
-}
+.nav-item .icon { font-size: 1.5rem; display: block; margin-bottom: 5px; }
+.nav-item span { font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; }
 
 /* Footer */
 footer {
     position: absolute; bottom: 15px; width: 100%; text-align: center;
-    font-size: 0.7rem; 
-    color: rgba(255, 255, 255, 0.6);
-    letter-spacing: 2px; z-index: 10;
-    font-weight: 600;
+    font-size: 0.7rem; color: #666; letter-spacing: 2px; z-index: 10;
 }
 
-/* Loading Screen */
+/* Loading & Extra */
 #loading-screen {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: #000;
-    z-index: 9999;
+    background: #000; z-index: 9999;
     display: flex; justify-content: center; align-items: center; flex-direction: column;
 }
+#circle {
+    position: fixed; width: 30px; height: 30px; border: 2px solid var(--neon-pink);
+    border-radius: 50%; pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%); display: none;
+}
+@media (min-width: 768px) { #circle { display: block; } }
