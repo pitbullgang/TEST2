@@ -20,10 +20,11 @@
         --card-bg: rgba(20, 20, 20, 0.85);
     }
 
-    /* 🌈 ธีม 2: Pastel (Cyan/Purple) */
+    /* 🌈 ธีม 2: Pastel (แก้ไขใหม่ให้ตรงหน้าแรก) */
     body.theme-pastel {
-        --main-color: #00ffff;       /* สีฟ้า Cyan */
-        --highlight-color: #e0ffff;  /* สีฟ้าอ่อน */
+        /* ✅ แก้เป็นสีทอง (Gold) ให้เหมือนปุ่มหน้าแรก */
+        --main-color: #ffd700;       
+        --highlight-color: #fffacd;  /* สีครีมสว่าง */
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -42,13 +43,13 @@
         background-size: cover;
         background-position: center;
         
-        transition: filter 0.5s ease-in-out;
+        transition: filter 0.8s ease-in-out;
         filter: hue-rotate(0deg);
     }
 
-    /* เปลี่ยนสีพื้นหลังเมื่อเป็นธีม Pastel */
+    /* ✅ แก้ไข: หมุนสีไป 240 องศา จะได้สีน้ำเงิน/ม่วง (Blue/Indigo) เหมือนหน้าแรก */
     body.theme-pastel #bg-fixed {
-        filter: hue-rotate(210deg) brightness(1.2) saturate(0.8);
+        filter: hue-rotate(240deg) brightness(1.3) saturate(1.1);
     }
 
     body {
@@ -79,7 +80,7 @@
 
     .back-btn:hover {
         background: var(--main-color);
-        color: white;
+        color: white; /* หรือ color: #000 ถ้าอยากให้ตัวหนังสือดำตอนชี้สีทอง */
         box-shadow: 0 0 15px var(--main-color);
     }
 
@@ -111,7 +112,7 @@
     }
 
     /* =========================================
-       🔍 SEARCH BAR & LIST Styles
+       🔍 SEARCH BAR
        ========================================= */
     .search-container { position: relative; max-width: 500px; margin: 0 auto 60px; }
     .search-container i {
@@ -127,6 +128,9 @@
     }
     .search-box:focus { opacity: 1; box-shadow: 0 0 15px var(--main-color); }
 
+    /* =========================================
+       👥 MEMBER LIST STYLES
+       ========================================= */
     section { margin-bottom: 60px; }
     h2 {
         font-size: 2.5rem; font-weight: 900; font-style: italic;
@@ -140,10 +144,12 @@
     }
     .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; justify-content: center; }
     .card {
-        background: var(--card-bg); border: 1px solid var(--main-color);
+        background: var(--card-bg);
+        border: 1px solid var(--main-color);
         border-radius: 15px; padding: 25px; text-align: center;
         transition: border-color 0.5s ease, transform 0.3s;
-        backdrop-filter: blur(10px); position: relative; overflow: hidden;
+        backdrop-filter: blur(10px);
+        position: relative; overflow: hidden;
     }
     .card:hover { transform: translateY(-10px); box-shadow: 0 0 25px var(--main-color), inset 0 0 15px var(--main-color); }
     .profile {
@@ -159,6 +165,10 @@
         font-size: 0.9rem; font-weight: bold; transition: all 0.5s ease;
     }
     .fb-link:hover { box-shadow: 0 0 15px var(--main-color); transform: scale(1.05); }
+
+    /* =========================================
+       📄 PAGINATION & FOOTER
+       ========================================= */
     .pagination-container { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
     .page-btn {
         background: transparent; border: 2px solid var(--main-color); color: white;
@@ -168,7 +178,8 @@
     .page-btn.active, .page-btn:hover { background: var(--main-color); box-shadow: 0 0 10px var(--main-color); }
     footer { margin-top: 50px; font-size: 0.8rem; color: rgba(255,255,255,0.5); }
     @media (max-width: 600px) {
-        .main-header-logo { max-width: 280px; } h2 { font-size: 1.8rem; padding: 10px 20px; }
+        .main-header-logo { max-width: 280px; }
+        h2 { font-size: 1.8rem; padding: 10px 20px; }
         .list { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
     }
   </style>
@@ -220,28 +231,28 @@
         const logoImg = document.getElementById('theme-logo');
         const body = document.body;
 
-        // ✅ 1. ตรวจสอบว่าหน้าแรกเลือกธีมอะไรไว้ (สำคัญมาก!)
+        // ✅ 1. โหลดธีมที่บันทึกไว้
         const currentTheme = localStorage.getItem('siteTheme'); 
 
         if (currentTheme === 'pastel') {
             body.classList.add('theme-pastel');
-            if(logoImg) logoImg.src = 'ganglist_logo_2.png'; // เปลี่ยนเป็นรูปพาสเทล
+            if(logoImg) logoImg.src = 'ganglist_logo_2.png'; 
         } else {
             body.classList.remove('theme-pastel');
-            if(logoImg) logoImg.src = 'ganglist_logo.png'; // เปลี่ยนเป็นรูปปกติ
+            if(logoImg) logoImg.src = 'ganglist_logo.png'; 
         }
 
-        // ✅ 2. ถ้ากดเปลี่ยนในหน้านี้ ก็ให้บันทึกค่ากลับไปด้วย
+        // ✅ 2. กดเปลี่ยนธีมในหน้านี้
         if (logoImg) {
             logoImg.addEventListener('click', function() {
                 body.classList.toggle('theme-pastel');
 
                 if (body.classList.contains('theme-pastel')) {
                     logoImg.src = 'ganglist_logo_2.png'; 
-                    localStorage.setItem('siteTheme', 'pastel'); // บันทึกว่าเลือกพาสเทล
+                    localStorage.setItem('siteTheme', 'pastel'); 
                 } else {
                     logoImg.src = 'ganglist_logo.png'; 
-                    localStorage.setItem('siteTheme', 'default'); // บันทึกว่าเลือกปกติ
+                    localStorage.setItem('siteTheme', 'default'); 
                 }
             });
         }
