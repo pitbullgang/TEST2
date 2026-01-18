@@ -1,10 +1,18 @@
 /* =========================================
-   PROJECT: HIGH LEVEL (Neon Theme + Butterfly Rain)
+   PROJECT: HIGH LEVEL (Dual Theme System)
    ========================================= */
 :root {
-    --neon-pink: #ff1493;    /* ชมพูเข้ม */
-    --bright-pink: #ff69b4;  /* ชมพูสว่าง */
-    --font: 'Kanit', sans-serif;
+    /* --- ธีม 1: Original (Pink Neon) --- */
+    --main-color: #ff1493;       /* ชมพูเข้ม */
+    --glow-color: #ff69b4;       /* ชมพูสว่าง */
+    --bg-filter: hue-rotate(0deg); /* สีพื้นหลังปกติ */
+}
+
+/* --- ธีม 2: Pastel Dream (Mint & Purple) --- */
+body.theme-pastel {
+    --main-color: #7fffd4;       /* สีมิ้นต์ (Aquamarine) เข้ากับขอบโลโก้ใหม่ */
+    --glow-color: #e6e6fa;       /* สีม่วงลาเวนเดอร์ (Lavender) */
+    --bg-filter: hue-rotate(240deg) brightness(1.2); /* ✅ เปลี่ยนสีพื้นหลังเดิมให้เป็นโทนม่วง/ฟ้า */
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -12,178 +20,96 @@
 html, body {
     height: 100%;
     width: 100%;
-    overflow: hidden; /* ห้ามเลื่อนหน้าจอ */
-    font-family: var(--font);
+    overflow: hidden;
+    font-family: 'Kanit', sans-serif;
     background-color: #000;
     color: white;
     position: relative;
-
-    /* --- พื้นหลัง --- */
+    
+    /* พื้นหลัง */
     background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('highlevel.png');
     background-size: cover;       
     background-position: center;  
     background-repeat: no-repeat;
     background-attachment: fixed;
-}
-
-/* =========================================
-   🦋 BUTTERFLY RAIN (ใช้รูป high.png)
-   ========================================= */
-#butterfly-container {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    overflow: hidden;
-    z-index: 1; /* อยู่เหนือพื้นหลัง */
-    pointer-events: none; /* คลิกทะลุได้ */
-}
-
-.butterfly {
-    position: absolute;
-    top: -60px;
-    width: 40px;  /* ✅ ปรับขนาดตามความเหมาะสม */
-    height: 40px;
     
-    /* ✅ เรียกใช้ไฟล์รูป high.png */
-    background-image: url('high.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    
-    opacity: 0.8;
-    animation: flutterDown linear infinite;
-}
-
-@keyframes flutterDown {
-    0% {
-        transform: translateY(0) rotate(0deg) scale(0.8);
-        opacity: 0;
-    }
-    10% { opacity: 0.9; }
-    100% {
-        transform: translateY(110vh) rotate(360deg) scale(1);
-        opacity: 0;
-    }
+    /* เอฟเฟกต์เปลี่ยนสีพื้นหลัง */
+    transition: filter 0.8s ease;
+    filter: var(--bg-filter);
 }
 
 /* =========================================
    MAIN CONTENT
    ========================================= */
-
 /* --- โลโก้หลักตรงกลาง --- */
 .center-logo-container {
     position: absolute;
-    top: 40%;       
-    left: 50%;
+    top: 40%; left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    display: flex;
-    justify-content: center;
-    z-index: 5;     
-}
-
-.main-logo {
-    width: 100%;
-    max-width: 500px; /* ขนาดโลโก้หลัก */
-    height: auto;
-    filter: drop-shadow(0 0 25px rgba(255, 20, 147, 0.4)); /* เงาสีชมพูฟุ้งๆ */
-    animation: floatLogo 3s ease-in-out infinite;
-}
-
-@keyframes floatLogo {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); } 
-    100% { transform: translateY(0px); }
-}
-
-/* =========================================
-   NAV BAR (ปุ่ม Neon Cyber-Gang)
-   ========================================= */
-.nav-bar {
-    position: absolute;
-    bottom: 15%;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 30px; /* ระยะห่าง */
+    display: flex; justify-content: center;
     z-index: 10;
 }
 
-/* ✅ กรอบปุ่ม */
+.main-logo {
+    width: 100%; max-width: 550px; height: auto;
+    filter: drop-shadow(0 0 25px var(--glow-color)); /* เงาเปลี่ยนสีตามธีม */
+    animation: floatLogo 3s ease-in-out infinite;
+    cursor: pointer; /* เมาส์รูปมือ */
+    transition: transform 0.2s, opacity 0.5s;
+}
+
+.main-logo:active { transform: scale(0.95); }
+
+@keyframes floatLogo {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); } 
+}
+
+/* =========================================
+   NAV BAR (ปุ่มเปลี่ยนสีตามธีม)
+   ========================================= */
+.nav-bar {
+    position: absolute; bottom: 15%; left: 0; width: 100%;
+    display: flex; justify-content: center; gap: 30px;
+    z-index: 10;
+}
+
 .nav-item {
-    text-decoration: none;
-    position: relative;
-    width: 180px;
-    padding: 15px 0;
-    
-    /* พื้นหลังดำโปร่งแสง */
+    text-decoration: none; position: relative; width: 180px; padding: 15px 0;
     background: rgba(0, 0, 0, 0.8);
     
-    /* เส้นขอบสีชมพูจางๆ */
-    border: 1px solid rgba(255, 20, 147, 0.5);
+    /* สีขอบและตัวหนังสือเปลี่ยนตามธีม */
+    border: 1px solid var(--main-color);
+    color: var(--main-color);
     
-    border-radius: 8px; /* มุมมนเล็กน้อย */
-    
-    color: white;
-    text-align: center;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    
-    /* เงาดำรองพื้น */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    overflow: hidden; 
+    border-radius: 8px; text-align: center;
+    transition: all 0.3s ease; cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5); overflow: hidden; 
 }
 
-/* เอฟเฟกต์แสงวิ่งผ่านปุ่ม (Sheen Effect) */
+/* เอฟเฟกต์แสงวิ่ง (Sheen) */
 .nav-item::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 20, 147, 0.2), transparent);
-    transition: 0.5s;
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, var(--glow-color), transparent);
+    opacity: 0.3; transition: 0.5s;
 }
+.nav-item:hover::before { left: 100%; }
 
-.nav-item:hover::before {
-    left: 100%;
-}
-
-/* เอฟเฟกต์ตอนเอาเมาส์ชี้ */
 .nav-item:hover {
-    background: rgba(255, 20, 147, 0.15);
-    border-color: var(--neon-pink);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--glow-color);
+    color: white;
+    box-shadow: 0 0 25px var(--main-color), inset 0 0 10px var(--main-color);
     transform: translateY(-5px);
-    box-shadow: 0 0 25px rgba(255, 20, 147, 0.6), inset 0 0 10px rgba(255, 20, 147, 0.3);
 }
 
-.nav-item .icon { 
-    font-size: 1.5rem; 
-    display: block; 
-    margin-bottom: 5px;
-    transition: 0.3s;
-}
+.nav-item .icon { font-size: 1.5rem; display: block; margin-bottom: 5px; transition: 0.3s; }
+.nav-item span { font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; }
 
-.nav-item span { 
-    font-size: 1.1rem; 
-    font-weight: 900; 
-    text-transform: uppercase; 
-    letter-spacing: 1.5px;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.8);
-}
-
-.nav-item:hover .icon, .nav-item:hover span {
-    color: var(--bright-pink);
-    text-shadow: 0 0 10px var(--neon-pink);
-}
-
-/* Footer */
-footer {
-    position: absolute; bottom: 15px; width: 100%; text-align: center;
-    font-size: 0.7rem; color: #888; letter-spacing: 2px; z-index: 10;
-}
-
-/* Loading Screen */
-#loading-screen {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: #000; z-index: 9999;
-    display: flex; justify-content: center; align-items: center; flex-direction: column;
-}
+/* ส่วนอื่นๆ */
+#butterfly-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; pointer-events: none; }
+.butterfly { position: absolute; top: -60px; width: 40px; height: 40px; background-image: url('high.png'); background-size: contain; background-repeat: no-repeat; opacity: 0.8; animation: flutterDown linear infinite; }
+@keyframes flutterDown { 0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; } 10% { opacity: 0.9; } 100% { transform: translateY(110vh) rotate(360deg) scale(1); opacity: 0; } }
+footer { position: absolute; bottom: 15px; width: 100%; text-align: center; font-size: 0.7rem; color: #888; letter-spacing: 2px; z-index: 10; }
+#loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
