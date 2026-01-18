@@ -1,10 +1,10 @@
 /* =========================================
-   🎨 Theme: High Level - White Edition (New Design)
+   🎨 Theme: High Level - Black & White Tint (New Pink Buttons)
    ========================================= */
 :root {
     --neon-pink: #ff1493;    /* ชมพูเข้ม */
     --soft-pink: #ff69b4;    /* ชมพูหวาน */
-    --text-color: #333333;   /* สีตัวหนังสือ (เทาเข้ม) */
+    --text-color: #ffffff;   /* สีตัวหนังสือ (ขาว) */
     --font: 'Kanit', sans-serif;
 }
 
@@ -16,13 +16,14 @@ html, body {
     overflow: hidden; /* ห้ามเลื่อนหน้าจอ */
     font-family: var(--font);
     
-    /* ✅ 1. พื้นหลังสีขาว */
-    background-color: #ffffff;
+    /* ✅ 1. พื้นหลังสีดำ */
+    background-color: #000000;
     color: var(--text-color);
     position: relative;
 
-    /* ใส่พื้นหลังเป็นรูปเดิม แต่ทับด้วยสีขาวจางๆ 90% ให้ดูคลีนๆ */
-    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('highlevel.png');
+    /* ✅ ใส่สีขาวจางๆ (translucent white) ทับรูปพื้นหลัง */
+    /* rgba(255, 255, 255, 0.1) คือสีขาวที่จางมาก (10%) ทำให้พื้นหลังดำดูสว่างขึ้น */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('highlevel.png');
     background-size: cover;       
     background-position: center;  
     background-repeat: no-repeat;
@@ -45,8 +46,8 @@ html, body {
     width: 100%;
     max-width: 550px; 
     height: auto;
-    /* เพิ่มเงาให้โลโก้เด่นขึ้นบนพื้นขาว */
-    filter: drop-shadow(0 10px 15px rgba(255, 105, 180, 0.3)); 
+    /* เงาสีชมพูเพื่อให้โลโก้เด่นบนพื้นหลังมืด */
+    filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.5)); 
     animation: floatLogo 3s ease-in-out infinite;
 }
 
@@ -57,7 +58,7 @@ html, body {
 }
 
 /* =========================================
-   🔘 New Button Design (ปุ่มกดแบบใหม่)
+   🔘 New Button Design (ปุ่มกดแบบใหม่ - สีชมพู)
    ========================================= */
 .nav-bar {
     position: absolute;
@@ -66,7 +67,7 @@ html, body {
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 25px; /* ระยะห่าง */
+    gap: 30px; /* ระยะห่าง */
     z-index: 10;
 }
 
@@ -75,7 +76,7 @@ html, body {
     text-decoration: none;
     position: relative;
     width: 180px;
-    padding: 12px 0;
+    padding: 15px 0;
     
     /* พื้นหลังไล่สีชมพู */
     background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
@@ -95,6 +96,7 @@ html, body {
     
     /* เงาฟุ้งๆ สีชมพู */
     box-shadow: 0 10px 25px rgba(255, 20, 147, 0.4);
+    cursor: pointer;
 }
 
 /* เอฟเฟกต์ตอนเอาเมาส์ชี้ */
@@ -105,9 +107,8 @@ html, body {
 }
 
 .nav-item .icon { 
-    font-size: 1.4rem; 
-    margin-bottom: 2px;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    font-size: 1.5rem; 
+    margin-bottom: 5px;
 }
 
 .nav-item span { 
@@ -115,14 +116,13 @@ html, body {
     font-weight: 800; 
     text-transform: uppercase; 
     letter-spacing: 1px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Footer (ปรับสีตัวหนังสือให้เข้มขึ้น) */
+/* Footer */
 footer {
     position: absolute; bottom: 15px; width: 100%; text-align: center;
     font-size: 0.7rem; 
-    color: #888; /* สีเทา */
+    color: rgba(255, 255, 255, 0.6); /* สีขาวจางๆ */
     letter-spacing: 2px; z-index: 10;
     font-weight: 600;
 }
@@ -130,7 +130,7 @@ footer {
 /* Loading Screen */
 #loading-screen {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: #fff; /* พื้นหลังโหลดเป็นสีขาว */
+    background: #000; /* พื้นหลังโหลดเป็นสีดำ */
     z-index: 9999;
     display: flex; justify-content: center; align-items: center; flex-direction: column;
 }
