@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HIGH LEVEL | MEMBER LIST</title>
   
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,500;0,700;0,900;1,900&display=swap" rel="stylesheet" />
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
   <style>
     /* =========================================
-       🎨 THEME SETTINGS (เหมือนหน้าหลัก)
+       🎨 THEME SETTINGS
        ========================================= */
     :root {
         --neon-pink: #ff1493;    
@@ -26,13 +26,12 @@
         font-family: var(--font);
         color: white;
         background-color: #000;
-        /* ใช้รูปพื้นหลังเดียวกับหน้าหลัก (ย้อนกลับไป 1 โฟลเดอร์ด้วย ../) */
         background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../highlevel.png');
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
         min-height: 100vh;
-        overflow-y: auto; /* ให้เลื่อนลงได้ */
+        overflow-y: auto;
     }
 
     /* =========================================
@@ -70,24 +69,33 @@
         text-align: center;
     }
 
+    /* ✅ ออกแบบหัวข้อใหญ่ใหม่ (GANG LIST) */
     header {
-        font-size: 3.5rem;
-        font-weight: 900;
+        font-size: 4rem; /* ใหญ่ขึ้น */
+        font-weight: 900; /* หนาสุด */
+        font-style: italic; /* ตัวเอียงสไตล์ Racing */
         text-transform: uppercase;
         margin-bottom: 30px;
-        /* เอฟเฟกต์ตัวหนังสือเรืองแสง */
-        text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
         letter-spacing: 2px;
+        
+        /* ทำสีตัวหนังสือแบบไล่เฉด (Gradient Text) */
+        background: -webkit-linear-gradient(#ffffff, #ff69b4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        
+        /* เงาเรืองแสงด้านหลัง */
+        filter: drop-shadow(0 0 15px var(--neon-pink));
+        
         animation: fadeInDown 1s ease;
     }
 
     /* =========================================
-       🔍 SEARCH BAR (ช่องค้นหา)
+       🔍 SEARCH BAR
        ========================================= */
     .search-container {
         position: relative;
         max-width: 500px;
-        margin: 0 auto 50px;
+        margin: 0 auto 60px; /* เพิ่มระยะห่างด้านล่าง */
     }
 
     .search-container i {
@@ -117,18 +125,31 @@
     }
 
     /* =========================================
-       👥 MEMBER LIST (GRID SYSTEM)
+       👥 MEMBER LIST STYLES
        ========================================= */
     section { margin-bottom: 60px; }
 
+    /* ✅ ออกแบบหัวข้อย่อยใหม่ (FOUNDER / LEADER / MEMBER) */
     h2 {
-        font-size: 2rem;
-        color: var(--bright-pink);
-        margin-bottom: 20px;
+        font-size: 2.5rem;
+        font-weight: 900; /* หนาปึ้ก */
+        font-style: italic; /* เอียง */
+        color: white;
+        margin-bottom: 30px;
         text-transform: uppercase;
-        border-bottom: 2px solid var(--neon-pink);
         display: inline-block;
-        padding-bottom: 5px;
+        padding: 10px 40px;
+        
+        /* ❌ เอาขีดออก (Border Bottom) */
+        border-bottom: none; 
+        
+        /* ✅ ใส่พื้นหลังจางๆ ทรงแคปซูลแทน */
+        background: linear-gradient(90deg, transparent, rgba(255, 20, 147, 0.2), transparent);
+        border-radius: 50px;
+        
+        /* เงาตัวหนังสือ */
+        text-shadow: 0 0 10px var(--neon-pink);
+        letter-spacing: 2px;
     }
 
     .list {
@@ -138,7 +159,7 @@
         justify-content: center;
     }
 
-    /* การ์ดสมาชิก (Neon Glass Style) */
+    /* การ์ดสมาชิก */
     .card {
         background: var(--card-bg);
         border: 1px solid rgba(255, 20, 147, 0.3);
@@ -157,7 +178,6 @@
         box-shadow: 0 0 20px rgba(255, 20, 147, 0.3), inset 0 0 10px rgba(255, 20, 147, 0.1);
     }
 
-    /* รูปโปรไฟล์ */
     .profile {
         width: 100px;
         height: 100px;
@@ -175,7 +195,6 @@
         text-transform: uppercase;
     }
 
-    /* ปุ่ม Facebook */
     .fb-link {
         display: inline-block;
         padding: 8px 20px;
@@ -195,7 +214,7 @@
     }
 
     /* =========================================
-       📄 PAGINATION (ปุ่มเปลี่ยนหน้า)
+       📄 PAGINATION
        ========================================= */
     .pagination-container {
         display: flex;
@@ -228,12 +247,11 @@
         color: rgba(255,255,255,0.5);
     }
 
-    /* Animation */
     @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Responsive */
     @media (max-width: 600px) {
-        header { font-size: 2.5rem; }
+        header { font-size: 3rem; }
+        h2 { font-size: 1.8rem; }
         .list { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
         .profile { width: 80px; height: 80px; }
     }
@@ -279,9 +297,7 @@
   </div>
 
   <script>
-    /* =========================================
-       🚀 JAVASCRIPT LOGIC (ทำงานเหมือนเดิมแต่ปรับ Path)
-       ========================================= */
+    /* JAVASCRIPT LOGIC (เหมือนเดิม) */
     const defaultImage = "https://i.pinimg.com/originals/91/ab/f0/91abf0d74be5d9aeb1346178e70dde96.gif";
     
     let allData = [];    
@@ -289,7 +305,6 @@
     const itemsPerPage = 8; 
     let currentPage = 1;
 
-    // --- 1. Anti-Inspect ---
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.onkeydown = function(e) {
       if (e.keyCode == 123) return false;
@@ -297,7 +312,6 @@
       if (e.ctrlKey && e.keyCode == 85) return false;
     };
 
-    // --- 2. Card Creator ---
     function createCard(person) {
       const imgSrc = person.image && person.image.trim() !== "" ? person.image : defaultImage;
       const card = document.createElement("div");
@@ -310,7 +324,6 @@
       return card;
     }
 
-    // --- 3. Pagination System ---
     function displayMembers(membersArray) {
       const memberList = document.getElementById("memberlist");
       const founderSection = document.getElementById("founderSection");
@@ -318,7 +331,6 @@
       
       memberList.innerHTML = "";
       
-      // ถ้าอยู่หน้าแรก ให้โชว์ Founder/Leader ด้วย
       if (currentPage === 1) {
           founderSection.style.display = "block";
           leaderSection.style.display = "block";
@@ -354,7 +366,6 @@
       }
     }
 
-    // --- 4. Search System ---
     const searchInput = document.getElementById("searchInput");
 
     searchInput.addEventListener("input", e => {
@@ -369,7 +380,6 @@
         const memberList = document.getElementById("memberlist");
 
         if (val === "") {
-            // คืนค่าเดิม
             currentPage = 1;
             founderList.innerHTML = "";
             leaderList.innerHTML = "";
@@ -387,7 +397,6 @@
             pagination.style.display = "flex";
 
         } else {
-            // โหมดค้นหา
             pagination.style.display = "none";
             founderList.innerHTML = "";
             leaderList.innerHTML = "";
@@ -413,8 +422,6 @@
         }
     });
 
-    // --- 5. Fetch Data ---
-    // ✅ สำคัญ: ใช้ ../person.json เพราะไฟล์ json อยู่โฟลเดอร์นอกสุด
     fetch("../person.json")
       .then(res => res.json())
       .then(data => {
