@@ -1,6 +1,8 @@
-/* script.js - Updated for High Level Theme */
+/* =========================================
+   Script.js - High Level Theme (Optimized)
+   ========================================= */
 
-window.addEventListener('load', function() {
+document.addEventListener('DOMContentLoaded', function() {
     
     // ------------------------------------------------
     // 1. จัดการหน้า Loading Screen
@@ -25,54 +27,63 @@ window.addEventListener('load', function() {
     const audio = document.getElementById("bg-music");
     
     if (audio) {
-        audio.volume = 0.3; // ตั้งความดังไว้ที่ 30% (ไม่ดังเกินไป)
+        audio.volume = 0.3; // ความดัง 30%
         
-        // Browser สมัยใหม่ต้องรอให้คนคลิกเว็บ 1 ที เพลงถึงจะเริ่มเล่นได้
-        document.body.addEventListener('click', () => {
+        // ฟังก์ชันเริ่มเล่นเพลง
+        const playAudio = () => {
             if (audio.paused) {
-                audio.play().catch(error => {
-                    console.log("Audio play failed (user didn't interact yet):", error);
+                audio.play().then(() => {
+                    console.log("Music Playing...");
+                }).catch(error => {
+                    console.log("Auto-play blocked, waiting for interaction.");
                 });
             }
-        }, { once: true }); // ทำงานแค่ครั้งเดียวพอ
+        };
+
+        // พยายามเล่นทันที (เผื่อ Browser อนุญาต)
+        playAudio();
+
+        // ถ้า Browser บล็อก ให้รอคลิกครั้งแรกแล้วค่อยเล่น
+        document.body.addEventListener('click', () => {
+            playAudio();
+        }, { once: true });
+    } else {
+        console.warn("ไม่พบ Element id='bg-music' กรุณาเช็คไฟล์ HTML");
+    }
+
+    // ------------------------------------------------
+    // 3. เอฟเฟกต์วงกลมตามเมาส์ (Smooth Circle Follower)
+    // ------------------------------------------------
+    const circle = document.getElementById('circle');
+
+    if (circle) {
+        let mouseX = window.innerWidth / 2; // เริ่มต้นที่กลางจอ
+        let mouseY = window.innerHeight / 2;
+        let circleX = mouseX;
+        let circleY = mouseY;
+
+        // อัปเดตพิกัดเมาส์เมื่อขยับ
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCircle() {
+            // สูตร Lerp เพื่อความนุ่มนวล
+            const dx = mouseX - circleX;
+            const dy = mouseY - circleY;
+            
+            // 0.15 = ความเร็ว (ยิ่งน้อยยิ่งหน่วงนุ่มๆ)
+            circleX += dx * 0.15; 
+            circleY += dy * 0.15;
+
+            // อัปเดตตำแหน่ง
+            circle.style.left = circleX + 'px';
+            circle.style.top = circleY + 'px';
+
+            requestAnimationFrame(animateCircle);
+        }
+        
+        animateCircle();
     }
 });
-
-// ------------------------------------------------
-// 3. เอฟเฟกต์วงกลมตามเมาส์ (Smooth Circle Follower)
-// ------------------------------------------------
-const circle = document.getElementById('circle');
-
-// เช็คก่อนว่ามีวงกลมในหน้านั้นไหม (กัน Error)
-if (circle) {
-    let mouseX = 0;
-    let mouseY = 0;
-    let circleX = 0;
-    let circleY = 0;
-
-    // อัปเดตพิกัดเมาส์เมื่อขยับ
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-
-    function animateCircle() {
-        // สูตร Lerp (Linear Interpolation) เพื่อให้วิ่งตามแบบนุ่มนวล
-        const dx = mouseX - circleX;
-        const dy = mouseY - circleY;
-        
-        // 0.15 คือความเร็ว (0.1 = นุ่มช้าๆ, 0.2 = เร็ว)
-        circleX += dx * 0.15; 
-        circleY += dy * 0.15;
-
-        // อัปเดตตำแหน่ง CSS
-        circle.style.left = circleX + 'px';
-        circle.style.top = circleY + 'px';
-
-        // วนลูปฟังก์ชันนี้ไปเรื่อยๆ ตามเฟรมเรตหน้าจอ
-        requestAnimationFrame(animateCircle);
-    }
-    
-    // เริ่มทำงาน
-    animateCircle();
-}
