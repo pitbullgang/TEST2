@@ -22,36 +22,37 @@
 
     /* 🌈 ธีม 2: Pastel (เมื่อเปลี่ยนธีม) */
     body.theme-pastel {
-        --main-color: #7fffd4;       /* สีมิ้นต์ (Aquamarine) */
-        --highlight-color: #e6e6fa;  /* สีลาเวนเดอร์ */
+        /* ✅ แก้ไขสี: ใช้สีฟ้า Cyan/Mint เพื่อให้เข้ากับโลโก้ */
+        --main-color: #00ffff;       
+        --highlight-color: #e0ffff;  
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     /* =========================================
-       🖼️ BACKGROUND LAYER (หัวใจสำคัญของความสมูท)
+       🖼️ BACKGROUND LAYER
        ========================================= */
     #bg-fixed {
         position: fixed;
         top: 0; left: 0;
         width: 100%; height: 100%;
-        z-index: -1; /* อยู่หลังสุด */
+        z-index: -1;
         
-        /* ใช้รูป highlevel.png รูปเดียวตลอดกาล */
+        /* รูปพื้นหลังหลัก */
         background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../highlevel.png');
         background-size: cover;
         background-position: center;
         
-        /* ✅ คำสั่งนี้ทำให้การเปลี่ยนสีสมูท (0.8 วินาที) */
         transition: filter 0.8s ease-in-out;
         
         /* ค่าเริ่มต้น (สีปกติ) */
         filter: hue-rotate(0deg);
     }
 
-    /* เมื่อเปลี่ยนธีม -> ให้หมุนวงล้อสีไปทางสีเขียว/ฟ้า */
+    /* ✅ แก้ไข: หมุนสีไปทางสีม่วง/น้ำเงิน (210deg) แทนสีเขียว */
+    /* และลดความสด (saturate) ลงนิดนึงให้ดูเป็นพาสเทล */
     body.theme-pastel #bg-fixed {
-        filter: hue-rotate(140deg) brightness(1.2) saturate(1.1);
+        filter: hue-rotate(210deg) brightness(1.2) saturate(0.8);
     }
 
     body {
@@ -76,8 +77,6 @@
         font-family: var(--font);
         font-weight: 700;
         cursor: pointer;
-        
-        /* Transition ให้ปุ่มเปลี่ยนสีสมูทด้วย */
         transition: all 0.5s ease;
         backdrop-filter: blur(5px);
     }
@@ -95,7 +94,7 @@
         text-align: center;
     }
 
-    /* ✅ LOGO หัวข้อหลัก */
+    /* ✅ LOGO */
     .main-header-logo {
         max-width: 350px; 
         width: 90%;
@@ -103,7 +102,6 @@
         display: block;
         margin: 0 auto 30px;
         
-        /* Transition เงา */
         transition: filter 0.5s ease;
         filter: drop-shadow(0 0 20px var(--main-color)); 
         
@@ -136,7 +134,7 @@
         background: rgba(0, 0, 0, 0.6);
         color: white; font-family: var(--font); font-size: 1.1rem;
         outline: none; 
-        transition: all 0.5s ease; /* สมูท */
+        transition: all 0.5s ease; 
         opacity: 0.8;
     }
 
@@ -155,7 +153,7 @@
         border-radius: 50px;
         text-shadow: 0 0 10px var(--main-color); letter-spacing: 2px;
         border-bottom: 3px solid var(--main-color);
-        transition: all 0.5s ease; /* สมูท */
+        transition: all 0.5s ease;
     }
 
     .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; justify-content: center; }
@@ -164,7 +162,7 @@
         background: var(--card-bg);
         border: 1px solid var(--main-color);
         border-radius: 15px; padding: 25px; text-align: center;
-        transition: border-color 0.5s ease, transform 0.3s; /* สมูท */
+        transition: border-color 0.5s ease, transform 0.3s;
         backdrop-filter: blur(10px);
         position: relative; overflow: hidden;
     }
@@ -178,7 +176,7 @@
         width: 100px; height: 100px; border-radius: 50%; object-fit: cover;
         border: 3px solid var(--main-color); margin-bottom: 15px;
         box-shadow: 0 0 15px var(--main-color); 
-        transition: all 0.5s ease; /* สมูท */
+        transition: all 0.5s ease;
     }
 
     .card h3 { font-size: 1.3rem; margin-bottom: 10px; color: white; text-transform: uppercase; }
@@ -188,7 +186,7 @@
         background: linear-gradient(90deg, var(--main-color), var(--highlight-color));
         color: white; text-decoration: none; border-radius: 20px;
         font-size: 0.9rem; font-weight: bold; 
-        transition: all 0.5s ease; /* สมูท */
+        transition: all 0.5s ease;
     }
 
     .fb-link:hover { box-shadow: 0 0 15px var(--main-color); transform: scale(1.05); }
@@ -202,7 +200,7 @@
         background: transparent; border: 2px solid var(--main-color); color: white;
         width: 40px; height: 40px; border-radius: 50%;
         font-family: var(--font); font-weight: bold; cursor: pointer; 
-        transition: all 0.5s ease; /* สมูท */
+        transition: all 0.5s ease;
     }
 
     .page-btn.active, .page-btn:hover {
@@ -263,18 +261,13 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
         
-        // =========================================
-        // 🚀 THEME SWITCHER (สมูทแบบมืออาชีพ)
-        // =========================================
+        // 🚀 THEME SWITCHER
         const logoImg = document.getElementById('theme-logo');
         
         if (logoImg) {
             logoImg.addEventListener('click', function() {
-                // 1. ใส่ Class เพื่อเปลี่ยนสีพื้นหลังและปุ่ม (CSS Transition จะทำงานเอง)
                 document.body.classList.toggle('theme-pastel');
 
-                // 2. เปลี่ยนรูปโลโก้
-                // (ถ้าอยากให้โลโก้สมูทด้วย ต้องใช้ Opacity แต่วิธีสลับ src ก็เร็วพอใช้ได้)
                 if (document.body.classList.contains('theme-pastel')) {
                     logoImg.src = 'ganglist_logo_2.png'; 
                 } else {
@@ -283,16 +276,13 @@
             });
         }
 
-        // =========================================
-        // ⚙️ DATA LOADING LOGIC
-        // =========================================
+        // ⚙️ DATA LOADING
         const defaultImage = "https://i.pinimg.com/originals/91/ab/f0/91abf0d74be5d9aeb1346178e70dde96.gif";
         let allData = [];    
         let allMembers = []; 
         const itemsPerPage = 8; 
         let currentPage = 1;
 
-        // Anti-Inspect
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.onkeydown = function(e) {
             if (e.keyCode == 123) return false;
