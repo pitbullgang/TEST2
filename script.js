@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     
-    // 1. Loading Screen
+    // 1. Loading Screen (เหมือนเดิม)
     const loader = document.getElementById('loading-screen');
     if (loader) {
         setTimeout(() => {
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 800);
     }
 
-    // 2. ฝนผีเสื้อ
+    // 2. ฝนผีเสื้อ (เหมือนเดิม)
     const butterflyContainer = document.getElementById('butterfly-container');
     const numberOfButterflies = 30; 
     if (butterflyContainer) {
@@ -26,24 +26,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // ✅ 3. ระบบสลับธีม (Theme Switcher)
-    const logoImg = document.querySelector('.main-logo'); // หาโลโก้
+    // ✅ 3. ระบบสลับธีม + บันทึกค่า (Theme Switcher & Save)
+    const logoImg = document.querySelector('.main-logo'); 
     
     if (logoImg) {
-        // เพิ่ม ID ให้ JS อ้างอิงได้ง่าย (ถ้ายังไม่มี)
         logoImg.id = 'theme-logo';
 
+        // --- ส่วนที่เพิ่ม: ตรวจสอบค่าเก่าก่อนโหลด ---
+        const savedTheme = localStorage.getItem('siteTheme');
+        if (savedTheme === 'pastel') {
+            document.body.classList.add('theme-pastel');
+            logoImg.src = 'highleveltwo.png';
+        }
+
+        // --- ส่วนที่แก้: กดแล้วเปลี่ยน + บันทึก ---
         logoImg.addEventListener('click', function() {
-            // สลับ Class ที่ Body
             document.body.classList.toggle('theme-pastel');
 
-            // เปลี่ยนรูปโลโก้
             if (document.body.classList.contains('theme-pastel')) {
-                // ธีมใหม่: โลโก้ Pastel
+                // เปลี่ยนเป็นธีม Pastel
                 logoImg.src = 'highleveltwo.png'; 
+                localStorage.setItem('siteTheme', 'pastel'); // ✅ บันทึกว่า "เลือก Pastel นะ"
             } else {
-                // ธีมเดิม: โลโก้ Original
+                // เปลี่ยนเป็นธีม Original
                 logoImg.src = 'highlevel.png'; 
+                localStorage.setItem('siteTheme', 'default'); // ✅ บันทึกว่า "เลือกปกติ นะ"
             }
         });
     }
