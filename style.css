@@ -1,24 +1,16 @@
-:root {
-  --gradient-start: #000000;
-  --gradient-end: #1a1a1a;
-  --circle-color: rgba(255, 255, 255, 0.1);
-  --button-gradient-start: #000000;
-  --button-gradient-end: #000000;
-  --button-text-color: #ffffff;
-  --font: 'Kanit', sans-serif;
-  --text-color: #ffffff;
-  --accent-color: #ff4d4d; /* สีแดง Pitbull */
-}
+/* =========================================
+   🎨 Theme: High Level (Y2K Pink & White)
+   ========================================= */
 
-/* 🌞 Light Theme Variables */
-.light-theme {
-  --gradient-start: #f0f0f0;
-  --gradient-end: #d9d9d9;
-  --circle-color: rgba(0, 0, 0, 0.05);
-  --button-gradient-start: #ffffff;
-  --button-gradient-end: #e0e0e0;
-  --button-text-color: #000000;
-  --text-color: #000000;
+:root {
+  /* ชุดสีใหม่: ชมพู-ขาว */
+  --primary-pink: #FF69B4;    /* ชมพูสด */
+  --soft-pink: #FFEBF5;       /* ชมพูอ่อน (พื้นหลัง) */
+  --glass-bg: rgba(255, 255, 255, 0.65); /* สีปุ่มกระจก */
+  --glass-border: rgba(255, 255, 255, 0.9);
+  --text-main: #333333;       /* สีตัวหนังสือเทาเข้ม */
+  --shadow-glow: 0 0 25px rgba(255, 105, 180, 0.5); /* แสงฟุ้งสีชมพู */
+  --font: 'Kanit', sans-serif;
 }
 
 /* Reset */
@@ -28,224 +20,202 @@
 html, body {
   height: 100%;
   width: 100%;
-  overflow: hidden; /* ล็อคหน้าจอไม่ให้เลื่อน (สำหรับหน้าแรก) */
+  overflow: hidden; /* ล็อคหน้าจอ */
   font-family: var(--font);
-  color: var(--text-color);
-  position: relative;
-  background-color: transparent !important; 
-}
-
-/* Light Glow Bottom */
-body::after {
-  content: "";
-  position: fixed;
-  bottom: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  height: 300px;
-  background: radial-gradient(circle at center top, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 70%);
-  filter: blur(80px);
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* Theme Toggle */
-.theme-toggle {
-  position: fixed;
-  top: 20px;
-  right: 25px;
-  background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 50px;
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
+  color: var(--text-main);
+  
+  /* พื้นหลังไล่สี ขาว -> ชมพูมุก (Fixed ไม่ขยับตาม scroll) */
+  background: linear-gradient(135deg, #ffffff 0%, #ffe6f2 100%);
+  background-attachment: fixed;
+  
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 20;
-  transition: all 0.3s ease;
 }
-.theme-toggle:hover {
-  background: rgba(255,255,255,0.15);
-  transform: scale(1.05);
-}
-.theme-toggle svg {
-  color: var(--text-color);
-  position: absolute;
-  transition: opacity 0.3s ease;
-}
-#sunIcon { opacity: 0; }
-.light-theme #moonIcon { opacity: 0; }
-.light-theme #sunIcon { opacity: 1; }
 
-/* Loading screen */
+/* =========================================
+   🖱️ Circle Follower (วงกลมตามเมาส์)
+   ========================================= */
+#circle {
+  position: fixed;
+  top: 0; left: 0;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--primary-pink); /* ขอบสีชมพู */
+  border-radius: 50%;
+  pointer-events: none; /* คลิกทะลุได้ */
+  z-index: 9999;
+  transform: translate(-50%, -50%); /* จัดกึ่งกลางเมาส์ */
+  transition: width 0.3s, height 0.3s; /* ถ้าอยากใส่ effect ตอนคลิก */
+  display: none; /* ซ่อนในมือถือ */
+}
+
+@media (min-width: 768px) {
+  #circle { display: block; }
+}
+
+/* =========================================
+   ⏳ Loading Screen
+   ========================================= */
 #loading-screen {
   position: fixed;
-  width: 100%;
-  height: 100%;
-  background: #000;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 999;
-  transition: opacity 1s ease;
+  z-index: 10000;
+  transition: opacity 0.5s ease;
 }
-#loading-screen.hidden { opacity: 0; pointer-events: none; }
 
 .loader {
-  border: 4px solid rgba(255,255,255,0.1);
-  border-top: 4px solid #888;
+  border: 4px solid rgba(255, 105, 180, 0.2);
+  border-top: 4px solid var(--primary-pink);
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
+  width: 50px; height: 50px;
   animation: spin 1s linear infinite;
+  margin-bottom: 15px;
 }
 @keyframes spin { 100% { transform: rotate(360deg); } }
 
 /* =========================================
-   🔥 ส่วนที่อัปเกรดใหม่: Design Cinematic
+   💎 Content & UI
    ========================================= */
 
-/* จัดกึ่งกลาง */
 .center-container {
-  position: absolute;
-  top: 50%; 
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 5;
-  width: 100%;
-  padding: 0 20px;
-}
-
-/* หัวข้อ Pitbull Gang (ใหญ่ + เงาแดง) */
-.title h2 {
-  font-size: 4.5rem;
-  font-weight: 900;
-  font-style: italic;
-  text-transform: uppercase;
-  color: #fff;
-  line-height: 1.1;
-  letter-spacing: -2px;
-  margin-bottom: 5px;
-  
-  /* เอฟเฟกต์นีออนสีแดง */
-  text-shadow: 0 0 10px rgba(255, 77, 77, 0.8),
-               0 0 40px rgba(255, 77, 77, 0.4);
-}
-
-/* หัวข้อรอง (ตัวเล็กห่างๆ) */
-.title p {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--accent-color);
-  text-transform: uppercase;
-  letter-spacing: 8px; /* เว้นระยะห่าง */
-  margin-bottom: 40px;
-  text-shadow: 0 0 10px rgba(0,0,0,0.8);
-  opacity: 0.9;
-}
-
-/* ปุ่มกดสไตล์ Dark Glass */
-button {
   position: relative;
+  z-index: 10;
+  text-align: center;
+  width: 90%;
+  max-width: 600px;
+  padding: 20px;
+}
+
+/* Logo Animation */
+.logo-area {
+  margin-bottom: 40px;
+}
+
+.main-logo {
+  width: 100%;
+  max-width: 500px; /* ขนาดโลโก้ */
+  height: auto;
+  filter: drop-shadow(0 10px 20px rgba(255, 105, 180, 0.3)); /* เงาชมพู */
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+.subtitle {
+  margin-top: 10px;
+  color: var(--primary-pink);
+  font-size: 1rem;
+  letter-spacing: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: 0 2px 4px rgba(255,255,255,0.8);
+}
+
+/* =========================================
+   🔘 Glass Buttons (ปุ่มกระจก)
+   ========================================= */
+.button-group {
   display: flex;
+  justify-content: center;
+  gap: 25px;
+  width: 100%;
+}
+
+.glass-btn {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  width: 150px;
+  padding: 25px 20px;
+  text-decoration: none;
   
-  width: 240px; /* ความกว้างคงที่ */
-  padding: 14px 0;
-  margin: 0; /* ลบ margin เดิมออก */
+  /* Glass Effect */
+  background: var(--glass-bg);
+  border: 2px solid #fff;
+  border-radius: 20px;
+  backdrop-filter: blur(12px); /* เบลอพื้นหลังปุ่ม */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* เงาเทานุ่มๆ */
   
-  font-family: var(--font);
-  font-size: 1.1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  
-  background: rgba(0, 0, 0, 0.6); /* พื้นหลังดำโปร่งใส */
-  backdrop-filter: blur(10px);
-  
-  border: 1px solid rgba(255, 255, 255, 0.15); /* ขอบขาวจางๆ */
-  color: #fff;
-  border-radius: 4px;
-  
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   cursor: pointer;
+  position: relative;
   overflow: hidden;
-  transition: all 0.4s ease;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
-/* เอฟเฟกต์ตอนชี้ปุ่ม */
-button:hover {
-  background: var(--accent-color); /* สีแดง */
-  border-color: var(--accent-color);
-  box-shadow: 0 0 30px rgba(255, 77, 77, 0.6); /* เรืองแสง */
-  transform: translateY(-3px) scale(1.02);
+/* Hover Effect */
+.glass-btn:hover {
+  transform: translateY(-10px) scale(1.05);
+  border-color: var(--primary-pink); /* เปลี่ยนขอบเป็นสีชมพู */
+  box-shadow: var(--shadow-glow);    /* เรืองแสง */
+  background: rgba(255, 255, 255, 0.9);
 }
 
-button svg {
-  width: 20px;
-  height: 20px;
-  stroke: #fff;
+.glass-btn .icon {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
   transition: transform 0.3s ease;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
 }
 
-button:hover svg {
-  transform: translateX(5px);
+.glass-btn:hover .icon {
+  transform: scale(1.2) rotate(-10deg); /* หมุนไอคอนนิดหน่อย */
 }
 
-/* ========================================= */
-
-/* Circle Follow */
-#circle {
-  position: fixed;
-  top: 0; left: 0;
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  background: var(--circle-color);
-  pointer-events: none;
-  filter: blur(80px);
-  transform: translate(-50%, -50%);
-  z-index: 2;
+.glass-btn span {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #555;
+  letter-spacing: 1px;
+  transition: color 0.3s;
 }
 
-/* Footer */
+.glass-btn:hover span {
+  color: var(--primary-pink);
+}
+
+/* =========================================
+   📜 Footer
+   ========================================= */
 footer {
-  position: fixed;
-  bottom: 15px;
-  left: 0;
+  position: absolute;
+  bottom: 20px;
   width: 100%;
   text-align: center;
-  color: rgba(255,255,255,0.5);
-  font-size: 0.9rem;
+  color: #888; /* สีเทาอ่อน */
+  font-size: 0.8rem;
+  letter-spacing: 1px;
   z-index: 5;
-  pointer-events: none;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  .title h2 { font-size: 2.5rem; }
-  .title p { letter-spacing: 4px; font-size: 0.8rem; }
-  button { width: 100%; max-width: 280px; }
-  #circle { width: 180px; height: 180px; filter: blur(50px); }
-}
-
-/* Video Background */
-#bg-video {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  transform: translate(-50%, -50%);
-  z-index: -100;
-  object-fit: cover;
+/* =========================================
+   📱 Responsive (มือถือ)
+   ========================================= */
+@media (max-width: 480px) {
+  .button-group {
+    flex-direction: row; /* เรียงแนวนอนเหมือนเดิม */
+    gap: 15px;
+  }
+  
+  .glass-btn {
+    width: 110px;
+    padding: 20px 10px;
+  }
+  
+  .glass-btn .icon { font-size: 1.8rem; }
+  .glass-btn span { font-size: 0.9rem; }
+  
+  .main-logo { max-width: 90%; }
 }
