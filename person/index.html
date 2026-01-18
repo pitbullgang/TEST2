@@ -13,59 +13,53 @@
        🎨 THEME SETTINGS
        ========================================= */
     :root {
-        /* ธีม 1: Pink (ค่าเริ่มต้น) */
+        /* 🎀 ธีม 1: Pink (ค่าเริ่มต้น) */
         --main-color: #ff1493;       
         --highlight-color: #ff69b4;  
         --font: 'Kanit', sans-serif;
         --card-bg: rgba(20, 20, 20, 0.85);
     }
 
-    /* ธีม 2: Pastel (เมื่อเปลี่ยนธีม) */
+    /* 🌈 ธีม 2: Pastel (เมื่อเปลี่ยนธีม) */
     body.theme-pastel {
-        --main-color: #7fffd4;       /* สีมิ้นต์ */
+        --main-color: #7fffd4;       /* สีมิ้นต์ (Aquamarine) */
         --highlight-color: #e6e6fa;  /* สีลาเวนเดอร์ */
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     /* =========================================
-       🖼️ BACKGROUND SYSTEM (แก้ใหม่: บังคับเปลี่ยนสี)
+       🖼️ BACKGROUND LAYER (หัวใจสำคัญของความสมูท)
        ========================================= */
-    
-    /* 1. ล้างพื้นหลังของ Body ทิ้ง เพื่อไม่ให้ซ้อนทับ */
-    body {
-        font-family: var(--font);
-        color: white;
-        background: transparent !important; /* บังคับโปร่งใส */
-        min-height: 100vh;
-        overflow-y: auto;
-        position: relative;
-    }
-
-    /* 2. สร้างเลเยอร์พื้นหลังแยกออกมาต่างหาก */
     #bg-fixed {
         position: fixed;
         top: 0; left: 0;
-        width: 100vw; height: 100vh;
-        z-index: -999; /* อยู่หลังสุดแน่นอน */
+        width: 100%; height: 100%;
+        z-index: -1; /* อยู่หลังสุด */
         
-        /* รูปพื้นหลังหลัก */
+        /* ใช้รูป highlevel.png รูปเดียวตลอดกาล */
         background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../highlevel.png');
         background-size: cover;
         background-position: center;
-        background-attachment: fixed;
         
-        /* ✅ หัวใจสำคัญ: Transition Filter */
+        /* ✅ คำสั่งนี้ทำให้การเปลี่ยนสีสมูท (0.8 วินาที) */
         transition: filter 0.8s ease-in-out;
         
-        /* ค่าเริ่มต้น */
+        /* ค่าเริ่มต้น (สีปกติ) */
         filter: hue-rotate(0deg);
     }
 
-    /* 3. สั่งเปลี่ยนสีเมื่อ Body มีคลาส theme-pastel */
+    /* เมื่อเปลี่ยนธีม -> ให้หมุนวงล้อสีไปทางสีเขียว/ฟ้า */
     body.theme-pastel #bg-fixed {
-        /* หมุนวงล้อสีไป 160 องศา (จากชมพู -> เขียว/ฟ้า) */
-        filter: hue-rotate(160deg) brightness(1.3) saturate(1.2);
+        filter: hue-rotate(140deg) brightness(1.2) saturate(1.1);
+    }
+
+    body {
+        font-family: var(--font);
+        color: white;
+        background-color: #000;
+        min-height: 100vh;
+        overflow-y: auto;
     }
 
     /* =========================================
@@ -82,6 +76,8 @@
         font-family: var(--font);
         font-weight: 700;
         cursor: pointer;
+        
+        /* Transition ให้ปุ่มเปลี่ยนสีสมูทด้วย */
         transition: all 0.5s ease;
         backdrop-filter: blur(5px);
     }
@@ -106,11 +102,15 @@
         height: auto;
         display: block;
         margin: 0 auto 30px;
+        
+        /* Transition เงา */
         transition: filter 0.5s ease;
         filter: drop-shadow(0 0 20px var(--main-color)); 
+        
         animation: floatLogo 3s ease-in-out infinite;
         cursor: pointer;
     }
+
     .main-header-logo:active { transform: scale(0.95); }
 
     @keyframes floatLogo {
@@ -123,24 +123,30 @@
        🔍 SEARCH BAR
        ========================================= */
     .search-container { position: relative; max-width: 500px; margin: 0 auto 60px; }
+
     .search-container i {
         position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
         color: var(--highlight-color); font-size: 1.5rem;
         transition: color 0.5s ease;
     }
+
     .search-box {
         width: 100%; padding: 15px 15px 15px 50px; border-radius: 50px;
         border: 2px solid var(--main-color);
         background: rgba(0, 0, 0, 0.6);
         color: white; font-family: var(--font); font-size: 1.1rem;
-        outline: none; transition: all 0.5s ease; opacity: 0.8;
+        outline: none; 
+        transition: all 0.5s ease; /* สมูท */
+        opacity: 0.8;
     }
+
     .search-box:focus { opacity: 1; box-shadow: 0 0 15px var(--main-color); }
 
     /* =========================================
        👥 MEMBER LIST STYLES
        ========================================= */
     section { margin-bottom: 60px; }
+
     h2 {
         font-size: 2.5rem; font-weight: 900; font-style: italic;
         color: white; margin-bottom: 30px; text-transform: uppercase;
@@ -149,43 +155,62 @@
         border-radius: 50px;
         text-shadow: 0 0 10px var(--main-color); letter-spacing: 2px;
         border-bottom: 3px solid var(--main-color);
-        transition: all 0.5s ease;
+        transition: all 0.5s ease; /* สมูท */
     }
+
     .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; justify-content: center; }
+
     .card {
         background: var(--card-bg);
         border: 1px solid var(--main-color);
         border-radius: 15px; padding: 25px; text-align: center;
-        transition: border-color 0.5s ease, transform 0.3s;
+        transition: border-color 0.5s ease, transform 0.3s; /* สมูท */
         backdrop-filter: blur(10px);
         position: relative; overflow: hidden;
     }
-    .card:hover { transform: translateY(-10px); box-shadow: 0 0 25px var(--main-color), inset 0 0 15px var(--main-color); }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 0 25px var(--main-color), inset 0 0 15px var(--main-color);
+    }
+
     .profile {
         width: 100px; height: 100px; border-radius: 50%; object-fit: cover;
         border: 3px solid var(--main-color); margin-bottom: 15px;
-        box-shadow: 0 0 15px var(--main-color); transition: all 0.5s ease;
+        box-shadow: 0 0 15px var(--main-color); 
+        transition: all 0.5s ease; /* สมูท */
     }
+
     .card h3 { font-size: 1.3rem; margin-bottom: 10px; color: white; text-transform: uppercase; }
+
     .fb-link {
         display: inline-block; padding: 8px 20px; margin-top: 10px;
         background: linear-gradient(90deg, var(--main-color), var(--highlight-color));
         color: white; text-decoration: none; border-radius: 20px;
-        font-size: 0.9rem; font-weight: bold; transition: all 0.5s ease;
+        font-size: 0.9rem; font-weight: bold; 
+        transition: all 0.5s ease; /* สมูท */
     }
+
     .fb-link:hover { box-shadow: 0 0 15px var(--main-color); transform: scale(1.05); }
 
     /* =========================================
-       📄 PAGINATION & FOOTER
+       📄 PAGINATION
        ========================================= */
     .pagination-container { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
+
     .page-btn {
         background: transparent; border: 2px solid var(--main-color); color: white;
         width: 40px; height: 40px; border-radius: 50%;
-        font-family: var(--font); font-weight: bold; cursor: pointer; transition: all 0.5s ease;
+        font-family: var(--font); font-weight: bold; cursor: pointer; 
+        transition: all 0.5s ease; /* สมูท */
     }
-    .page-btn.active, .page-btn:hover { background: var(--main-color); box-shadow: 0 0 10px var(--main-color); }
+
+    .page-btn.active, .page-btn:hover {
+        background: var(--main-color); box-shadow: 0 0 10px var(--main-color);
+    }
+
     footer { margin-top: 50px; font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+
     @media (max-width: 600px) {
         .main-header-logo { max-width: 280px; }
         h2 { font-size: 1.8rem; padding: 10px 20px; }
@@ -238,14 +263,18 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
         
-        // 🚀 THEME SWITCHER
+        // =========================================
+        // 🚀 THEME SWITCHER (สมูทแบบมืออาชีพ)
+        // =========================================
         const logoImg = document.getElementById('theme-logo');
+        
         if (logoImg) {
             logoImg.addEventListener('click', function() {
-                // 1. สลับ Class ที่ Body (พื้นหลังจะเปลี่ยนสีเองเพราะ CSS #bg-fixed)
+                // 1. ใส่ Class เพื่อเปลี่ยนสีพื้นหลังและปุ่ม (CSS Transition จะทำงานเอง)
                 document.body.classList.toggle('theme-pastel');
 
                 // 2. เปลี่ยนรูปโลโก้
+                // (ถ้าอยากให้โลโก้สมูทด้วย ต้องใช้ Opacity แต่วิธีสลับ src ก็เร็วพอใช้ได้)
                 if (document.body.classList.contains('theme-pastel')) {
                     logoImg.src = 'ganglist_logo_2.png'; 
                 } else {
@@ -254,21 +283,32 @@
             });
         }
 
-        // ⚙️ DATA LOADING (เหมือนเดิม)
+        // =========================================
+        // ⚙️ DATA LOADING LOGIC
+        // =========================================
         const defaultImage = "https://i.pinimg.com/originals/91/ab/f0/91abf0d74be5d9aeb1346178e70dde96.gif";
         let allData = [];    
         let allMembers = []; 
         const itemsPerPage = 8; 
         let currentPage = 1;
 
+        // Anti-Inspect
         document.addEventListener('contextmenu', e => e.preventDefault());
-        document.onkeydown = function(e) { if(e.keyCode==123) return false; };
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123) return false;
+            if (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) return false;
+            if (e.ctrlKey && e.keyCode == 85) return false;
+        };
 
         function createCard(person) {
             const imgSrc = person.image && person.image.trim() !== "" ? person.image : defaultImage;
             const card = document.createElement("div");
             card.className = "card";
-            card.innerHTML = `<img src="${imgSrc}" class="profile"><h3>${person.name}</h3><a href="${person.facebook}" target="_blank" class="fb-link">FACEBOOK</a>`;
+            card.innerHTML = `
+                <img src="${imgSrc}" class="profile" alt="profile">
+                <h3>${person.name}</h3>
+                <a href="${person.facebook}" target="_blank" class="fb-link">FACEBOOK</a>
+            `;
             return card;
         }
 
@@ -276,7 +316,9 @@
             const memberList = document.getElementById("memberlist");
             const founderSection = document.getElementById("founderSection");
             const leaderSection = document.getElementById("leaderSection");
+            
             memberList.innerHTML = "";
+            
             if (currentPage === 1) {
                 founderSection.style.display = "block";
                 leaderSection.style.display = "block";
@@ -284,66 +326,86 @@
                 founderSection.style.display = "none";
                 leaderSection.style.display = "none";
             }
+
             const start = (currentPage - 1) * itemsPerPage;
             const end = start + itemsPerPage;
             const paginatedItems = membersArray.slice(start, end);
+            
             paginatedItems.forEach(p => memberList.appendChild(createCard(p)));
             renderPagination(membersArray.length);
         }
 
         function renderPagination(totalItems) {
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
             const container = document.getElementById("pagination-controls");
             container.innerHTML = "";
-            const totalPages = Math.ceil(totalItems / itemsPerPage);
             if (totalPages <= 1) return;
+
             for (let i = 1; i <= totalPages; i++) {
                 const btn = document.createElement("button");
                 btn.innerText = i;
                 btn.className = (i === currentPage) ? "page-btn active" : "page-btn";
                 btn.onclick = () => {
-                    currentPage = i; displayMembers(allMembers); window.scrollTo({ top: 300, behavior: 'smooth' });
+                    currentPage = i;
+                    displayMembers(allMembers);
+                    window.scrollTo({ top: 300, behavior: 'smooth' });
                 };
                 container.appendChild(btn);
             }
         }
 
         const searchInput = document.getElementById("searchInput");
+
         searchInput.addEventListener("input", e => {
             const val = e.target.value.toLowerCase().trim();
-            const fList = document.getElementById("founderlist");
-            const lList = document.getElementById("leaderlist");
-            const mList = document.getElementById("memberlist");
-            const fSec = document.getElementById("founderSection");
-            const lSec = document.getElementById("leaderSection");
-            const mSec = document.getElementById("memberSection");
-            const pageControl = document.getElementById("pagination-controls");
+            const fSection = document.getElementById("founderSection");
+            const lSection = document.getElementById("leaderSection");
+            const mSection = document.getElementById("memberSection");
+            const pagination = document.getElementById("pagination-controls");
+
+            const founderList = document.getElementById("founderlist");
+            const leaderList = document.getElementById("leaderlist");
+            const memberList = document.getElementById("memberlist");
 
             if (val === "") {
                 currentPage = 1;
-                fList.innerHTML = ""; lList.innerHTML = "";
+                founderList.innerHTML = "";
+                leaderList.innerHTML = "";
+                
                 const founders = allData.filter(p => p.permission === "founder");
                 const leaders = allData.filter(p => p.permission === "leader");
-                founders.forEach(p => fList.appendChild(createCard(p)));
-                leaders.forEach(p => lList.appendChild(createCard(p)));
+                
+                founders.forEach(p => founderList.appendChild(createCard(p)));
+                leaders.forEach(p => leaderList.appendChild(createCard(p)));
                 displayMembers(allMembers);
-                fSec.style.display = founders.length > 0 ? "block" : "none";
-                lSec.style.display = "block"; mSec.style.display = "block";
-                pageControl.style.display = "flex";
+                
+                fSection.style.display = founders.length > 0 ? "block" : "none";
+                lSection.style.display = "block";
+                mSection.style.display = "block";
+                pagination.style.display = "flex";
+
             } else {
-                pageControl.style.display = "none";
-                fList.innerHTML = ""; lList.innerHTML = ""; mList.innerHTML = "";
+                pagination.style.display = "none";
+                founderList.innerHTML = "";
+                leaderList.innerHTML = "";
+                memberList.innerHTML = "";
+
                 const filtered = allData.filter(p => p.name.toLowerCase().includes(val));
+
                 filtered.forEach(p => {
                     const card = createCard(p);
-                    if (p.permission === "founder") fList.appendChild(card);
-                    else if (p.permission === "leader") lList.appendChild(card);
-                    else mList.appendChild(card);
+                    if (p.permission === "founder") founderList.appendChild(card);
+                    else if (p.permission === "leader") leaderList.appendChild(card);
+                    else memberList.appendChild(card);
                 });
-                fSec.style.display = fList.children.length > 0 ? "block" : "none";
-                lSec.style.display = lList.children.length > 0 ? "block" : "none";
-                mSec.style.display = mList.children.length > 0 ? "block" : "none";
+
+                fSection.style.display = founderList.children.length > 0 ? "block" : "none";
+                lSection.style.display = leaderList.children.length > 0 ? "block" : "none";
+                mSection.style.display = memberList.children.length > 0 ? "block" : "none";
+                
                 if (filtered.length === 0) {
-                    mSec.style.display = "block"; mList.innerHTML = `<p style="opacity:0.5; width:100%; margin-top:20px;">ไม่พบรายชื่อที่ค้นหา...</p>`;
+                    mSection.style.display = "block";
+                    memberList.innerHTML = `<p style="opacity:0.5; width:100%; margin-top:20px;">ไม่พบรายชื่อที่ค้นหา...</p>`;
                 }
             }
         });
@@ -352,13 +414,14 @@
             .then(res => res.json())
             .then(data => {
                 allData = data;
-                const fList = document.getElementById("founderlist");
-                const lList = document.getElementById("leaderlist");
+                const founderList = document.getElementById("founderlist");
+                const leaderList = document.getElementById("leaderlist");
                 const founders = data.filter(p => p.permission === "founder");
                 const leaders = data.filter(p => p.permission === "leader");
                 allMembers = data.filter(p => p.permission === "member"); 
-                founders.forEach(p => fList.appendChild(createCard(p)));
-                leaders.forEach(p => lList.appendChild(createCard(p)));
+
+                founders.forEach(p => founderList.appendChild(createCard(p)));
+                leaders.forEach(p => leaderList.appendChild(createCard(p)));
                 displayMembers(allMembers);
             })
             .catch(err => console.error("Error loading JSON:", err));
