@@ -27,7 +27,8 @@ html, body {
     position: relative;
     
     /* พื้นหลัง */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('highlevel.png');
+    /* ✅ แก้ไขตรงนี้: เปลี่ยน 0.85 เป็น 0.6 เพื่อให้สว่างขึ้น */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('highlevel.png');
     background-size: cover;       
     background-position: center;  
     background-repeat: no-repeat;
