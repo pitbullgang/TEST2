@@ -1,10 +1,10 @@
 /* =========================================
-   🎨 Theme: High Level - Black & White Tint (New Pink Buttons)
+   🎨 Theme: High Level - Black BG & White Glass Buttons
    ========================================= */
 :root {
-    --neon-pink: #ff1493;    /* ชมพูเข้ม */
-    --soft-pink: #ff69b4;    /* ชมพูหวาน */
-    --text-color: #ffffff;   /* สีตัวหนังสือ (ขาว) */
+    --neon-pink: #ff1493;    /* ชมพูเข้ม (สำหรับตัวหนังสือในปุ่ม) */
+    --soft-pink: #ff69b4;    /* ชมพูหวาน (สำหรับเงา) */
+    --text-color: #ffffff;   /* สีตัวหนังสือทั่วไป (ขาว) */
     --font: 'Kanit', sans-serif;
 }
 
@@ -16,13 +16,10 @@ html, body {
     overflow: hidden; /* ห้ามเลื่อนหน้าจอ */
     font-family: var(--font);
     
-    /* ✅ 1. พื้นหลังสีดำ */
+    /* พื้นหลังสีดำ และมีสีขาวจางๆ คลุมทับรูป */
     background-color: #000000;
     color: var(--text-color);
     position: relative;
-
-    /* ✅ ใส่สีขาวจางๆ (translucent white) ทับรูปพื้นหลัง */
-    /* rgba(255, 255, 255, 0.1) คือสีขาวที่จางมาก (10%) ทำให้พื้นหลังดำดูสว่างขึ้น */
     background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('highlevel.png');
     background-size: cover;       
     background-position: center;  
@@ -30,7 +27,7 @@ html, body {
     background-attachment: fixed;
 }
 
-/* --- โลโก้หลักตรงกลาง --- */
+/* --- โลโก้หลักตรงกลาง (อยู่ชั้นบนสุด ไม่โดนทับ) --- */
 .center-logo-container {
     position: absolute;
     top: 40%;       
@@ -39,14 +36,13 @@ html, body {
     width: 100%;
     display: flex;
     justify-content: center;
-    z-index: 5;     
+    z-index: 20; /* ✅ เพิ่ม Z-Index ให้สูงกว่าปุ่ม เพื่อความชัวร์ว่าไม่โดนทับ */
 }
 
 .main-logo {
     width: 100%;
     max-width: 550px; 
     height: auto;
-    /* เงาสีชมพูเพื่อให้โลโก้เด่นบนพื้นหลังมืด */
     filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.5)); 
     animation: floatLogo 3s ease-in-out infinite;
 }
@@ -58,7 +54,7 @@ html, body {
 }
 
 /* =========================================
-   🔘 New Button Design (ปุ่มกดแบบใหม่ - สีชมพู)
+   🔘 New Button Design (ปุ่มกดแบบ White Glass - กรอบขาว)
    ========================================= */
 .nav-bar {
     position: absolute;
@@ -67,48 +63,55 @@ html, body {
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 30px; /* ระยะห่าง */
-    z-index: 10;
+    gap: 30px;
+    z-index: 10; /* อยู่ชั้นล่างโลโก้ */
 }
 
-/* ✅ ดีไซน์ปุ่มใหม่: ทรงแคปซูล ไล่สีชมพู */
+/* ✅ ดีไซน์ปุ่มใหม่: กรอบขาว พื้นหลังขาวโปร่งแสง (Glassmorphism) */
 .nav-item {
     text-decoration: none;
     position: relative;
     width: 180px;
     padding: 15px 0;
     
-    /* พื้นหลังไล่สีชมพู */
-    background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
-    color: white; /* ตัวหนังสือสีขาว */
+    /* พื้นหลังสีขาวโปร่งแสง (ไม่ใช่เทา) */
+    background: rgba(255, 255, 255, 0.15); 
+    /* เอฟเฟกต์กระจกเบลอ */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     
-    /* รูปทรงมน (Capsule Shape) */
-    border-radius: 50px;
-    border: none;
+    /* กรอบสีขาวชัดเจน */
+    border: 2px solid rgba(255, 255, 255, 0.5);
     
+    /* เปลี่ยนสีตัวหนังสือในปุ่มเป็นสีชมพู เพื่อให้เด่นบนพื้นขาว */
+    color: var(--neon-pink); 
+    
+    border-radius: 50px; /* ทรงแคปซูลมน */
     display: flex;
-    flex-direction: column; /* ไอคอนอยู่บน ตัวหนังสืออยู่ล่าง */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    
     text-align: center;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* เด้งดึ๋งเวลาชี้ */
+    transition: all 0.3s ease;
     
-    /* เงาฟุ้งๆ สีชมพู */
-    box-shadow: 0 10px 25px rgba(255, 20, 147, 0.4);
+    /* เงาฟุ้งๆ สีขาวผสมชมพู */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
 
 /* เอฟเฟกต์ตอนเอาเมาส์ชี้ */
 .nav-item:hover {
-    transform: translateY(-8px) scale(1.05); /* ลอยขึ้นและขยาย */
-    box-shadow: 0 20px 35px rgba(255, 20, 147, 0.6); /* เงาเข้มขึ้น */
-    background: linear-gradient(135deg, #ff1493 0%, #ff0080 100%); /* สีเข้มขึ้นนิดนึง */
+    transform: translateY(-5px) scale(1.05);
+    /* พื้นหลังขาวขึ้นเมื่อชี้ */
+    background: rgba(255, 255, 255, 0.25); 
+    border-color: var(--neon-pink); /* ขอบเปลี่ยนเป็นสีชมพู */
+    box-shadow: 0 0 20px rgba(255, 20, 147, 0.4); /* เงาสีชมพู */
 }
 
 .nav-item .icon { 
-    font-size: 1.5rem; 
+    font-size: 1.6rem; 
     margin-bottom: 5px;
+    filter: drop-shadow(0 2px 2px rgba(255, 20, 147, 0.3));
 }
 
 .nav-item span { 
@@ -122,7 +125,7 @@ html, body {
 footer {
     position: absolute; bottom: 15px; width: 100%; text-align: center;
     font-size: 0.7rem; 
-    color: rgba(255, 255, 255, 0.6); /* สีขาวจางๆ */
+    color: rgba(255, 255, 255, 0.6);
     letter-spacing: 2px; z-index: 10;
     font-weight: 600;
 }
@@ -130,7 +133,7 @@ footer {
 /* Loading Screen */
 #loading-screen {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: #000; /* พื้นหลังโหลดเป็นสีดำ */
+    background: #000;
     z-index: 9999;
     display: flex; justify-content: center; align-items: center; flex-direction: column;
 }
