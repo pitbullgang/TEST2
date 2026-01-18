@@ -1,8 +1,9 @@
 /* =========================================
-   PROJECT: HIGH LEVEL (Official Theme)
+   PROJECT: HIGH LEVEL (Official Theme - Neon Redesign)
    ========================================= */
 :root {
-    --neon-pink: #ff1493;    /* สีธีมชมพู */
+    --neon-pink: #ff1493;    /* ชมพูเข้ม */
+    --bright-pink: #ff69b4;  /* ชมพูสว่าง */
     --font: 'Kanit', sans-serif;
 }
 
@@ -17,25 +18,24 @@ html, body {
     color: white;
     position: relative;
 
-    /* --- ส่วนที่ 1: พื้นหลัง (ใช้รูป highlevel.png) --- */
-    /* ใส่สีดำทับ 85% เพื่อให้พื้นหลังมืดๆ ไม่แย่งซีนโลโก้หลัก */
+    /* --- พื้นหลัง (ตามที่คุณต้องการ) --- */
     background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('highlevel.png');
-    background-size: cover;       /* ขยายเต็มจอ */
-    background-position: center;  /* จัดกึ่งกลาง */
+    background-size: cover;       
+    background-position: center;  
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
-/* --- ส่วนที่ 2: โลโก้หลักตรงกลาง (ขยับได้) --- */
+/* --- โลโก้หลักตรงกลาง --- */
 .center-logo-container {
     position: absolute;
-    top: 40%;       /* ขยับขึ้นมาจากกึ่งกลางนิดหน่อย */
+    top: 40%;       
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
     display: flex;
     justify-content: center;
-    z-index: 5;     /* อยู่เหนือพื้นหลัง */
+    z-index: 5;     
 }
 
 .main-logo {
@@ -43,19 +43,17 @@ html, body {
     max-width: 500px; /* ขนาดโลโก้หลัก */
     height: auto;
     filter: drop-shadow(0 0 25px rgba(255, 20, 147, 0.4)); /* เงาสีชมพูฟุ้งๆ */
-    
-    /* อนิเมชั่นลอยขึ้นลง */
     animation: floatLogo 3s ease-in-out infinite;
 }
 
 @keyframes floatLogo {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); } /* ลอยขึ้น */
+    50% { transform: translateY(-15px); } 
     100% { transform: translateY(0px); }
 }
 
 /* =========================================
-   NAV BAR (เมนูด้านล่าง)
+   NAV BAR (ดีไซน์ปุ่มใหม่: Neon Cyber-Gang)
    ========================================= */
 .nav-bar {
     position: absolute;
@@ -64,37 +62,91 @@ html, body {
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 30px; /* ระยะห่าง */
     z-index: 10;
 }
 
+/* ✅ กรอบปุ่มใหม่ */
 .nav-item {
     text-decoration: none;
-    color: white;
-    background: linear-gradient(180deg, rgba(50,50,50,0.9) 0%, rgba(0,0,0,1) 100%);
-    width: 160px;
+    position: relative;
+    width: 180px;
     padding: 15px 0;
-    border-top: 2px solid #555;
-    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+    
+    /* พื้นหลังดำโปร่งแสง */
+    background: rgba(0, 0, 0, 0.8);
+    
+    /* เส้นขอบสีชมพูจางๆ ก่อนชี้ */
+    border: 1px solid rgba(255, 20, 147, 0.5);
+    
+    /* ลบ clip-path เดิมออก เพื่อใช้ทรงสี่เหลี่ยมมน */
+    clip-path: none; 
+    border-radius: 8px; /* มุมมนเล็กน้อยให้ดูทันสมัย */
+    
+    color: white;
     text-align: center;
     transition: all 0.3s ease;
     cursor: pointer;
+    
+    /* เงาดำรองพื้น */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    overflow: hidden; /* เพื่อให้เอฟเฟกต์แสงอยู่ข้างใน */
 }
 
+/* เอฟเฟกต์แสงวิ่งผ่านปุ่ม (Sheen Effect) */
+.nav-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 20, 147, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.nav-item:hover::before {
+    left: 100%;
+}
+
+/* เอฟเฟกต์ตอนเอาเมาส์ชี้ */
 .nav-item:hover {
-    background: linear-gradient(180deg, rgba(255, 20, 147, 0.3) 0%, rgba(0,0,0,1) 100%);
-    border-top-color: var(--neon-pink);
+    /* พื้นหลังสว่างขึ้นเป็นสีชมพูจางๆ */
+    background: rgba(255, 20, 147, 0.15);
+    
+    /* เส้นขอบเรืองแสงชัดเจน */
+    border-color: var(--neon-pink);
+    
+    /* ตัวหนังสือเด้งขึ้น */
     transform: translateY(-5px);
-    box-shadow: 0 0 20px rgba(255, 20, 147, 0.4);
+    
+    /* แสง Glow ฟุ้งกระจาย */
+    box-shadow: 0 0 25px rgba(255, 20, 147, 0.6), inset 0 0 10px rgba(255, 20, 147, 0.3);
 }
 
-.nav-item .icon { font-size: 1.5rem; display: block; margin-bottom: 5px; }
-.nav-item span { font-size: 1.1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; }
+.nav-item .icon { 
+    font-size: 1.5rem; 
+    display: block; 
+    margin-bottom: 5px;
+    transition: 0.3s;
+}
+
+.nav-item span { 
+    font-size: 1.1rem; 
+    font-weight: 900; 
+    text-transform: uppercase; 
+    letter-spacing: 1.5px;
+    /* เงาตัวหนังสือ */
+    text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+}
+
+.nav-item:hover .icon, .nav-item:hover span {
+    color: var(--bright-pink);
+    text-shadow: 0 0 10px var(--neon-pink);
+}
 
 /* Footer */
 footer {
     position: absolute; bottom: 15px; width: 100%; text-align: center;
-    font-size: 0.7rem; color: #666; letter-spacing: 2px; z-index: 10;
+    font-size: 0.7rem; color: #888; letter-spacing: 2px; z-index: 10;
 }
 
 /* Loading & Extra */
@@ -107,5 +159,6 @@ footer {
     position: fixed; width: 30px; height: 30px; border: 2px solid var(--neon-pink);
     border-radius: 50%; pointer-events: none; z-index: 9999;
     transform: translate(-50%, -50%); display: none;
+    box-shadow: 0 0 10px var(--neon-pink);
 }
 @media (min-width: 768px) { #circle { display: block; } }
