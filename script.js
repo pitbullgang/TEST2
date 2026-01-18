@@ -26,32 +26,52 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // ✅ 3. ระบบสลับธีม + บันทึกค่า (Theme Switcher & Save)
+    // ✅ 3. ระบบสลับธีม + Warp Jump Animation (อัปเกรดใหม่)
     const logoImg = document.querySelector('.main-logo'); 
+    let isAnimating = false; // ตัวแปรป้องกันการกดรัวๆ
     
     if (logoImg) {
         logoImg.id = 'theme-logo';
 
-        // --- ส่วนที่เพิ่ม: ตรวจสอบค่าเก่าก่อนโหลด ---
+        // 3.1 โหลดธีมเก่าที่บันทึกไว้ (เหมือนเดิม)
         const savedTheme = localStorage.getItem('siteTheme');
         if (savedTheme === 'pastel') {
             document.body.classList.add('theme-pastel');
             logoImg.src = 'highleveltwo.png';
         }
 
-        // --- ส่วนที่แก้: กดแล้วเปลี่ยน + บันทึก ---
+        // 3.2 กดเพื่อวาปเปลี่ยนธีม (แก้ใหม่)
         logoImg.addEventListener('click', function() {
-            document.body.classList.toggle('theme-pastel');
+            if (isAnimating) return; // ถ้ากำลังวาปอยู่ ให้หยุดทำงาน
+            isAnimating = true;
 
-            if (document.body.classList.contains('theme-pastel')) {
-                // เปลี่ยนเป็นธีม Pastel
-                logoImg.src = 'highleveltwo.png'; 
-                localStorage.setItem('siteTheme', 'pastel'); // ✅ บันทึกว่า "เลือก Pastel นะ"
-            } else {
-                // เปลี่ยนเป็นธีม Original
-                logoImg.src = 'highlevel.png'; 
-                localStorage.setItem('siteTheme', 'default'); // ✅ บันทึกว่า "เลือกปกติ นะ"
-            }
+            // A. เริ่มท่าไม้ตาย 1: วาปหายไป (Warp Out)
+            logoImg.classList.add('warp-out');
+
+            // B. รอให้หายไปก่อน (ประมาณ 550ms) แล้วค่อยเปลี่ยนทุกอย่าง
+            setTimeout(() => {
+                // --- ช่วงเวลาเปลี่ยนถ่าย (เปลี่ยนคลาส, รูป, บันทึก) ---
+                document.body.classList.toggle('theme-pastel');
+
+                if (document.body.classList.contains('theme-pastel')) {
+                    logoImg.src = 'highleveltwo.png';
+                    localStorage.setItem('siteTheme', 'pastel');
+                } else {
+                    logoImg.src = 'highlevel.png';
+                    localStorage.setItem('siteTheme', 'default');
+                }
+
+                // C. เริ่มท่าไม้ตาย 2: วาปกลับมา (Warp In)
+                logoImg.classList.remove('warp-out');
+                logoImg.classList.add('warp-in');
+
+                // D. จบอนิเมชั่น: เคลียร์คลาสออกเมื่อวาปกลับมาเสร็จ (800ms)
+                setTimeout(() => {
+                    logoImg.classList.remove('warp-in');
+                    isAnimating = false; // อนุญาตให้กดใหม่ได้
+                }, 800);
+
+            }, 550); // เวลาของ warp-out
         });
     }
 });
