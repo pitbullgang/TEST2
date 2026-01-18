@@ -1,11 +1,9 @@
 /* =========================================
-   🎨 Theme: High Level - Dark Street (Old Layout)
+   🎨 Theme: High Level - Dark Gangster (Fixed Background)
    ========================================= */
 :root {
     --neon-pink: #ff1493;    /* ชมพูเข้ม */
     --hot-pink: #FF69B4;     /* ชมพูสว่าง */
-    --dark-bg: #0a0a0a;      /* ดำเกือบสนิท */
-    --glass-black: rgba(0, 0, 0, 0.7); /* สีพื้นหลังปุ่มแบบโปร่งแสง */
     --font: 'Kanit', sans-serif;
 }
 
@@ -14,39 +12,45 @@
 html, body {
     height: 100%;
     width: 100%;
-    overflow: hidden; /* ห้ามเลื่อน */
+    overflow: hidden; /* ห้ามเลื่อนหน้าจอ */
     font-family: var(--font);
-    background-color: var(--dark-bg);
+    background-color: #000; /* พื้นหลังสีดำรองรับไว้ก่อน */
     color: white;
 }
 
-/* 🔥 Background Image (โลโก้เป็นพื้นหลัง) */
+/* 🔥 ส่วนจัดการภาพพื้นหลัง (แก้ใหม่) */
 .background-layer {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -1;
+    position: fixed; /* ยึดติดหน้าจอ */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* ✅ แก้จาก -1 เป็น 0 (เพื่อให้รูปโผล่ขึ้นมาเหนือสีดำ) */
+    
     display: flex;
     justify-content: center;
     align-items: center;
     
-    /* เอฟเฟกต์พื้นหลัง */
-    background: radial-gradient(circle at center, #2a0a18 0%, #000000 70%);
+    /* เอฟเฟกต์พื้นหลังมืดๆ รอบๆ */
+    background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,1) 90%);
 }
 
-/* ตัวโลโก้ใหญ่กลางจอ */
+/* ตัวโลโก้ที่เป็นพื้นหลัง */
 .bg-logo {
-    width: 80%;          /* ปรับความใหญ่ของโลโก้พื้นหลัง */
-    max-width: 900px;
+    width: 85%;           /* ปรับขนาดโลโก้ตามชอบ */
+    max-width: 1000px;
     height: auto;
-    opacity: 1;          /* ความชัด (ถ้าอยากให้จางๆ ปรับลดเหลือ 0.5) */
-    filter: drop-shadow(0 0 30px rgba(255, 20, 147, 0.4)); /* เงาสีชมพู */
-    animation: floatBg 6s ease-in-out infinite;
+    object-fit: contain;
+    opacity: 0.6;         /* ✅ ปรับความจาง (0.5 = จางครึ่งนึง, 1.0 = ชัดสุด) */
+    filter: drop-shadow(0 0 20px rgba(255, 20, 147, 0.3)); /* เงาสีชมพูเรืองแสง */
+    
+    /* อนิเมชั่นลอยเบาๆ */
+    animation: breathe 5s ease-in-out infinite;
 }
 
-@keyframes floatBg {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-20px) scale(1.02); }
+@keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.05); opacity: 0.8; }
 }
 
 /* =========================================
@@ -54,70 +58,70 @@ html, body {
    ========================================= */
 .nav-bar {
     position: absolute;
-    bottom: 50px;       /* ระยะห่างจากด้านล่าง */
+    bottom: 60px;       /* ระยะห่างจากขอบล่าง */
     left: 0;
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 40px;          /* ระยะห่างระหว่างปุ่ม */
-    z-index: 10;
+    gap: 30px;          /* ระยะห่างระหว่างปุ่ม */
+    z-index: 10;        /* ✅ ต้องสูงกว่า background (0) เพื่อให้กดได้ */
 }
 
-/* ดีไซน์ปุ่มแบบเว็บเก่า (Card Style) */
+/* ดีไซน์ปุ่ม (สไตล์เดิมที่ชอบ) */
 .nav-item {
     text-decoration: none;
     color: white;
-    background: linear-gradient(to bottom, rgba(40,40,40,0.8), rgba(10,10,10,0.9));
-    width: 180px;
+    background: linear-gradient(180deg, rgba(50,50,50,0.9) 0%, rgba(0,0,0,1) 100%);
+    width: 160px;
     padding: 15px 0;
-    border-top: 3px solid #444; /* ขอบบนสีเทา */
-    border-bottom: 3px solid transparent;
+    
+    /* ขอบและรูปทรง */
+    border-top: 2px solid #555;
+    border-bottom: 2px solid transparent;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); /* ทรงสี่เหลี่ยมคางหมู */
+    
     text-align: center;
     transition: all 0.3s ease;
-    
-    /* ทำให้ปุ่มดูเฉียงๆ เท่ๆ (Clip Path) */
-    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
 }
 
 .nav-item:hover {
-    background: linear-gradient(to bottom, rgba(255, 20, 147, 0.2), rgba(0,0,0,0.9));
+    background: linear-gradient(180deg, rgba(255, 20, 147, 0.3) 0%, rgba(0,0,0,1) 100%);
     border-top-color: var(--hot-pink); /* เปลี่ยนขอบบนเป็นสีชมพู */
-    transform: translateY(-10px);
+    transform: translateY(-5px);
     text-shadow: 0 0 10px var(--hot-pink);
+    box-shadow: 0 0 20px rgba(255, 20, 147, 0.4);
 }
 
 .nav-item .icon {
-    font-size: 1.8rem;
-    margin-bottom: 5px;
+    font-size: 1.5rem;
     display: block;
+    margin-bottom: 5px;
 }
 
 .nav-item span {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
 }
 
-/* =========================================
-   🎵 Footer & Extras
-   ========================================= */
+/* Footer & Extras */
 footer {
     position: absolute;
-    bottom: 10px;
+    bottom: 15px;
     width: 100%;
     text-align: center;
     font-size: 0.7rem;
-    color: rgba(255,255,255,0.3);
+    color: #666;
     letter-spacing: 2px;
+    z-index: 10;
 }
 
-/* Loading Screen */
 #loading-screen {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: #000; z-index: 9999;
-    display: flex; justify-content: center; align-items: center;
-    flex-direction: column;
+    display: flex; justify-content: center; align-items: center; flex-direction: column;
 }
 
 /* Cursor วงกลม */
@@ -126,13 +130,13 @@ footer {
     border: 2px solid var(--hot-pink);
     border-radius: 50%; pointer-events: none; z-index: 9999;
     transform: translate(-50%, -50%); display: none;
-    box-shadow: 0 0 15px var(--hot-pink);
+    box-shadow: 0 0 10px var(--hot-pink);
 }
 @media (min-width: 768px) { #circle { display: block; } }
 
-/* Responsive มือถือ */
+/* Mobile Responsive */
 @media (max-width: 600px) {
-    .bg-logo { width: 95%; }
-    .nav-bar { bottom: 80px; gap: 10px; }
+    .bg-logo { width: 100%; opacity: 0.5; }
+    .nav-bar { bottom: 80px; gap: 15px; }
     .nav-item { width: 110px; font-size: 0.9rem; }
 }
