@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
             butterfly.style.animationDelay = Math.random() * 5 + 's';
             
             // สุ่มขนาด (0.6 เท่า ถึง 1.2 เท่า)
-            const scale = Math.random() * 0.6 + 0.6;
+            const scale = Math.random() * 0.6 + 1.2;
             butterfly.style.transform = `scale(${scale})`;
             
             // สุ่มความจาง
