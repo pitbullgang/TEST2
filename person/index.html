@@ -10,14 +10,23 @@
 
   <style>
     /* =========================================
-       🎨 THEME SETTINGS
+       🎨 THEME SETTINGS (ระบบเปลี่ยนธีม)
        ========================================= */
     :root {
-        --neon-pink: #ff1493;    
-        --bright-pink: #ff69b4;  
-        --bg-dark: rgba(0, 0, 0, 0.7);
-        --card-bg: rgba(20, 20, 20, 0.85);
+        /* 🎀 ธีม 1: Default (ชมพู) */
+        --main-color: #ff1493;       /* สีหลัก (Neon Pink) */
+        --highlight-color: #ff69b4;  /* สีสว่าง (Hot Pink) */
+        --bg-image: url('../highlevel.png'); /* พื้นหลัง 1 (อยู่โฟลเดอร์หลัก) */
         --font: 'Kanit', sans-serif;
+        --card-bg: rgba(20, 20, 20, 0.85);
+        --bg-dark: rgba(0, 0, 0, 0.7);
+    }
+
+    /* 🔴 ธีม 2: Pitbull (แดง) - จะทำงานเมื่อ body มีคลาสนี้ */
+    body.theme-pitbull {
+        --main-color: #ff0000;       /* เปลี่ยนเป็นสีแดง */
+        --highlight-color: #ff4444;  /* เปลี่ยนเป็นสีแดงสว่าง */
+        --bg-image: url('../pitbull.png'); /* เปลี่ยนพื้นหลัง (ต้องมีไฟล์นี้ในโฟลเดอร์หลัก) */
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,12 +35,18 @@
         font-family: var(--font);
         color: white;
         background-color: #000;
-        background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../highlevel.png');
+        
+        /* ✅ ใช้ตัวแปร --bg-image เพื่อให้เปลี่ยนรูปได้ */
+        background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), var(--bg-image);
+        
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
         min-height: 100vh;
         overflow-y: auto;
+        
+        /* เอฟเฟกต์ fade ตอนเปลี่ยนธีม */
+        transition: background-image 0.5s ease, color 0.5s ease;
     }
 
     /* =========================================
@@ -45,8 +60,9 @@
 
     .back-btn {
         background: rgba(0,0,0,0.6);
-        color: var(--neon-pink);
-        border: 1px solid var(--neon-pink);
+        /* ใช้ตัวแปรสี --main-color */
+        color: var(--main-color);
+        border: 1px solid var(--main-color);
         padding: 10px 25px;
         border-radius: 30px;
         font-family: var(--font);
@@ -57,9 +73,9 @@
     }
 
     .back-btn:hover {
-        background: var(--neon-pink);
+        background: var(--main-color);
         color: white;
-        box-shadow: 0 0 15px var(--neon-pink);
+        box-shadow: 0 0 15px var(--main-color);
     }
 
     .container {
@@ -69,15 +85,35 @@
         text-align: center;
     }
 
-    /* ✅ LOGO หัวข้อหลัก (แก้ไขขนาดตรงนี้) */
+    /* ✅ LOGO หัวข้อหลัก (กดเพื่อเปลี่ยนธีม) */
     .main-header-logo {
-        max-width: 350px; /* <-- ปรับลดลงจาก 500px เหลือ 350px */
+        max-width: 350px; 
         width: 90%;
         height: auto;
         display: block;
         margin: 0 auto 30px;
-        filter: drop-shadow(0 0 20px var(--neon-pink)); /* เงาสีชมพู */
-        animation: fadeInDown 1s ease;
+        
+        /* ใช้ตัวแปรสี --main-color */
+        filter: drop-shadow(0 0 20px var(--main-color)); 
+        
+        /* อนิเมชั่นลอยขึ้นลง */
+        animation: floatLogo 3s ease-in-out infinite;
+        
+        /* ✅ เพิ่ม Cursor เป็นรูปมือ ให้รู้ว่ากดได้ */
+        cursor: pointer;
+        transition: transform 0.2s ease, filter 0.5s ease;
+    }
+
+    /* เอฟเฟกต์ตอนกดโลโก้ */
+    .main-header-logo:active {
+        transform: scale(0.95);
+    }
+
+    /* Keyframes สำหรับอนิเมชั่นลอยตัว */
+    @keyframes floatLogo {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0px); }
     }
 
     /* =========================================
@@ -93,7 +129,8 @@
         position: absolute;
         left: 20px; top: 50%;
         transform: translateY(-50%);
-        color: var(--bright-pink);
+        /* ใช้ตัวแปรสีสว่าง */
+        color: var(--highlight-color);
         font-size: 1.5rem;
     }
 
@@ -101,18 +138,22 @@
         width: 100%;
         padding: 15px 15px 15px 50px;
         border-radius: 50px;
-        border: 2px solid rgba(255, 20, 147, 0.3);
+        
+        /* เปลี่ยนสีขอบตามธีม */
+        border: 2px solid var(--main-color);
         background: rgba(0, 0, 0, 0.6);
         color: white;
         font-family: var(--font);
         font-size: 1.1rem;
         outline: none;
         transition: 0.3s;
+        opacity: 0.8;
     }
 
     .search-box:focus {
-        border-color: var(--neon-pink);
-        box-shadow: 0 0 15px rgba(255, 20, 147, 0.4);
+        opacity: 1;
+        /* เงาตอนพิมพ์ เปลี่ยนสีตามธีม */
+        box-shadow: 0 0 15px var(--main-color);
     }
 
     /* =========================================
@@ -120,7 +161,7 @@
        ========================================= */
     section { margin-bottom: 60px; }
 
-    /* ✅ หัวข้อย่อย (FOUNDER, LEADER, MEMBER) กลับมาเป็นตัวหนังสือ */
+    /* หัวข้อย่อย (FOUNDER, LEADER, MEMBER) */
     h2 {
         font-size: 2.5rem;
         font-weight: 900;
@@ -131,13 +172,15 @@
         display: inline-block;
         padding: 10px 40px;
         
-        /* พื้นหลังจางๆ ทรงแคปซูล */
-        background: linear-gradient(90deg, transparent, rgba(255, 20, 147, 0.2), transparent);
+        /* พื้นหลังจางๆ สีตามธีม */
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
         border-radius: 50px;
         
-        /* เงาตัวหนังสือ */
-        text-shadow: 0 0 10px var(--neon-pink);
+        /* เงาตัวหนังสือและเส้นใต้ เปลี่ยนสีตามธีม */
+        text-shadow: 0 0 10px var(--main-color);
         letter-spacing: 2px;
+        border-bottom: 3px solid var(--main-color);
+        transition: 0.5s ease;
     }
 
     .list {
@@ -150,7 +193,8 @@
     /* การ์ดสมาชิก */
     .card {
         background: var(--card-bg);
-        border: 1px solid rgba(255, 20, 147, 0.3);
+        /* ขอบการ์ดสีตามธีม */
+        border: 1px solid var(--main-color);
         border-radius: 15px;
         padding: 25px;
         text-align: center;
@@ -162,8 +206,8 @@
 
     .card:hover {
         transform: translateY(-10px);
-        border-color: var(--neon-pink);
-        box-shadow: 0 0 20px rgba(255, 20, 147, 0.3), inset 0 0 10px rgba(255, 20, 147, 0.1);
+        /* แสงฟุ้งตอนชี้ เปลี่ยนสีตามธีม */
+        box-shadow: 0 0 25px var(--main-color), inset 0 0 15px var(--main-color);
     }
 
     .profile {
@@ -171,9 +215,12 @@
         height: 100px;
         border-radius: 50%;
         object-fit: cover;
-        border: 3px solid var(--neon-pink);
+        
+        /* ขอบรูปโปรไฟล์สีตามธีม */
+        border: 3px solid var(--main-color);
         margin-bottom: 15px;
-        box-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+        box-shadow: 0 0 15px var(--main-color);
+        transition: 0.5s ease;
     }
 
     .card h3 {
@@ -187,7 +234,9 @@
         display: inline-block;
         padding: 8px 20px;
         margin-top: 10px;
-        background: linear-gradient(90deg, #ff1493, #ff69b4);
+        
+        /* ปุ่มไล่สีตามธีม */
+        background: linear-gradient(90deg, var(--main-color), var(--highlight-color));
         color: white;
         text-decoration: none;
         border-radius: 20px;
@@ -197,7 +246,7 @@
     }
 
     .fb-link:hover {
-        box-shadow: 0 0 15px var(--neon-pink);
+        box-shadow: 0 0 15px var(--main-color);
         transform: scale(1.05);
     }
 
@@ -213,7 +262,8 @@
 
     .page-btn {
         background: transparent;
-        border: 2px solid var(--neon-pink);
+        /* สีขอบปุ่มเปลี่ยนหน้า */
+        border: 2px solid var(--main-color);
         color: white;
         width: 40px;
         height: 40px;
@@ -225,8 +275,8 @@
     }
 
     .page-btn.active, .page-btn:hover {
-        background: var(--neon-pink);
-        box-shadow: 0 0 10px var(--neon-pink);
+        background: var(--main-color);
+        box-shadow: 0 0 10px var(--main-color);
     }
 
     footer {
@@ -238,8 +288,8 @@
     @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
     @media (max-width: 600px) {
-        .main-header-logo { max-width: 250px; } /* ปรับในมือถือให้เล็กลงด้วย */
-        h2 { font-size: 1.8rem; }
+        .main-header-logo { max-width: 280px; }
+        h2 { font-size: 1.8rem; padding: 10px 20px; }
         .list { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
         .profile { width: 80px; height: 80px; }
     }
@@ -259,7 +309,7 @@
 
   <div class="container">
     
-    <img src="ganglist_logo.png" alt="GANG LIST" class="main-header-logo">
+    <img src="ganglist_logo.png" alt="GANG LIST" class="main-header-logo" id="theme-logo">
 
     <div class="search-container">
       <i class='bx bx-search'></i>
@@ -286,149 +336,174 @@
   </div>
 
   <script>
-    /* JAVASCRIPT LOGIC (เหมือนเดิม) */
-    const defaultImage = "https://i.pinimg.com/originals/91/ab/f0/91abf0d74be5d9aeb1346178e70dde96.gif";
+    /* =========================================
+       🚀 JAVASCRIPT LOGIC
+       ========================================= */
     
-    let allData = [];    
-    let allMembers = []; 
-    const itemsPerPage = 8; 
-    let currentPage = 1;
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // ✅ ระบบสลับธีม (Theme Switcher)
+        const logoImg = document.getElementById('theme-logo');
+        
+        if (logoImg) {
+            logoImg.addEventListener('click', function() {
+                // 1. สลับ Class 'theme-pitbull' ที่ Body
+                document.body.classList.toggle('theme-pitbull');
 
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.onkeydown = function(e) {
-      if (e.keyCode == 123) return false;
-      if (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) return false;
-      if (e.ctrlKey && e.keyCode == 85) return false;
-    };
-
-    function createCard(person) {
-      const imgSrc = person.image && person.image.trim() !== "" ? person.image : defaultImage;
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <img src="${imgSrc}" class="profile" alt="profile">
-        <h3>${person.name}</h3>
-        <a href="${person.facebook}" target="_blank" class="fb-link">FACEBOOK</a>
-      `;
-      return card;
-    }
-
-    function displayMembers(membersArray) {
-      const memberList = document.getElementById("memberlist");
-      const founderSection = document.getElementById("founderSection");
-      const leaderSection = document.getElementById("leaderSection");
-      
-      memberList.innerHTML = "";
-      
-      if (currentPage === 1) {
-          founderSection.style.display = "block";
-          leaderSection.style.display = "block";
-      } else {
-          founderSection.style.display = "none";
-          leaderSection.style.display = "none";
-      }
-
-      const start = (currentPage - 1) * itemsPerPage;
-      const end = start + itemsPerPage;
-      const paginatedItems = membersArray.slice(start, end);
-      
-      paginatedItems.forEach(p => memberList.appendChild(createCard(p)));
-      renderPagination(membersArray.length);
-    }
-
-    function renderPagination(totalItems) {
-      const totalPages = Math.ceil(totalItems / itemsPerPage);
-      const container = document.getElementById("pagination-controls");
-      container.innerHTML = "";
-      if (totalPages <= 1) return;
-
-      for (let i = 1; i <= totalPages; i++) {
-        const btn = document.createElement("button");
-        btn.innerText = i;
-        btn.className = (i === currentPage) ? "page-btn active" : "page-btn";
-        btn.onclick = () => {
-          currentPage = i;
-          displayMembers(allMembers);
-          window.scrollTo({ top: 300, behavior: 'smooth' });
-        };
-        container.appendChild(btn);
-      }
-    }
-
-    const searchInput = document.getElementById("searchInput");
-
-    searchInput.addEventListener("input", e => {
-        const val = e.target.value.toLowerCase().trim();
-        const fSection = document.getElementById("founderSection");
-        const lSection = document.getElementById("leaderSection");
-        const mSection = document.getElementById("memberSection");
-        const pagination = document.getElementById("pagination-controls");
-
-        const founderList = document.getElementById("founderlist");
-        const leaderList = document.getElementById("leaderlist");
-        const memberList = document.getElementById("memberlist");
-
-        if (val === "") {
-            currentPage = 1;
-            founderList.innerHTML = "";
-            leaderList.innerHTML = "";
-            
-            const founders = allData.filter(p => p.permission === "founder");
-            const leaders = allData.filter(p => p.permission === "leader");
-            
-            founders.forEach(p => founderList.appendChild(createCard(p)));
-            leaders.forEach(p => leaderList.appendChild(createCard(p)));
-            displayMembers(allMembers);
-            
-            fSection.style.display = founders.length > 0 ? "block" : "none";
-            lSection.style.display = "block";
-            mSection.style.display = "block";
-            pagination.style.display = "flex";
-
-        } else {
-            pagination.style.display = "none";
-            founderList.innerHTML = "";
-            leaderList.innerHTML = "";
-            memberList.innerHTML = "";
-
-            const filtered = allData.filter(p => p.name.toLowerCase().includes(val));
-
-            filtered.forEach(p => {
-                const card = createCard(p);
-                if (p.permission === "founder") founderList.appendChild(card);
-                else if (p.permission === "leader") leaderList.appendChild(card);
-                else memberList.appendChild(card);
+                // 2. เช็คว่าตอนนี้เป็นธีมอะไร แล้วเปลี่ยนรูปโลโก้
+                if (document.body.classList.contains('theme-pitbull')) {
+                    // 🔴 ถ้าเป็นธีม Pitbull (แดง) -> ใช้รูป ganglist_logo_2.png
+                    // (ต้องมีไฟล์นี้ในโฟลเดอร์ person)
+                    logoImg.src = 'ganglist_logo_2.png'; 
+                } else {
+                    // 🎀 ถ้ากลับมาธีมเดิม (ชมพู) -> ใช้รูป ganglist_logo.png
+                    logoImg.src = 'ganglist_logo.png'; 
+                }
             });
+        }
 
-            fSection.style.display = founderList.children.length > 0 ? "block" : "none";
-            lSection.style.display = leaderList.children.length > 0 ? "block" : "none";
-            mSection.style.display = memberList.children.length > 0 ? "block" : "none";
+        // --- ส่วนอื่นๆ (ดึงข้อมูล, ค้นหา, แบ่งหน้า) เหมือนเดิม ---
+        const defaultImage = "https://i.pinimg.com/originals/91/ab/f0/91abf0d74be5d9aeb1346178e70dde96.gif";
+        let allData = [];    
+        let allMembers = []; 
+        const itemsPerPage = 8; 
+        let currentPage = 1;
+
+        // Anti-Inspect (ปิดคลิกขวา)
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123) return false;
+            if (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) return false;
+            if (e.ctrlKey && e.keyCode == 85) return false;
+        };
+
+        function createCard(person) {
+            const imgSrc = person.image && person.image.trim() !== "" ? person.image : defaultImage;
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `
+                <img src="${imgSrc}" class="profile" alt="profile">
+                <h3>${person.name}</h3>
+                <a href="${person.facebook}" target="_blank" class="fb-link">FACEBOOK</a>
+            `;
+            return card;
+        }
+
+        function displayMembers(membersArray) {
+            const memberList = document.getElementById("memberlist");
+            const founderSection = document.getElementById("founderSection");
+            const leaderSection = document.getElementById("leaderSection");
             
-            if (filtered.length === 0) {
-                mSection.style.display = "block";
-                memberList.innerHTML = `<p style="opacity:0.5; width:100%; margin-top:20px;">ไม่พบรายชื่อที่ค้นหา...</p>`;
+            memberList.innerHTML = "";
+            
+            if (currentPage === 1) {
+                founderSection.style.display = "block";
+                leaderSection.style.display = "block";
+            } else {
+                founderSection.style.display = "none";
+                leaderSection.style.display = "none";
+            }
+
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const paginatedItems = membersArray.slice(start, end);
+            
+            paginatedItems.forEach(p => memberList.appendChild(createCard(p)));
+            renderPagination(membersArray.length);
+        }
+
+        function renderPagination(totalItems) {
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            const container = document.getElementById("pagination-controls");
+            container.innerHTML = "";
+            if (totalPages <= 1) return;
+
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement("button");
+                btn.innerText = i;
+                btn.className = (i === currentPage) ? "page-btn active" : "page-btn";
+                btn.onclick = () => {
+                    currentPage = i;
+                    displayMembers(allMembers);
+                    window.scrollTo({ top: 300, behavior: 'smooth' });
+                };
+                container.appendChild(btn);
             }
         }
+
+        const searchInput = document.getElementById("searchInput");
+
+        searchInput.addEventListener("input", e => {
+            const val = e.target.value.toLowerCase().trim();
+            const fSection = document.getElementById("founderSection");
+            const lSection = document.getElementById("leaderSection");
+            const mSection = document.getElementById("memberSection");
+            const pagination = document.getElementById("pagination-controls");
+
+            const founderList = document.getElementById("founderlist");
+            const leaderList = document.getElementById("leaderlist");
+            const memberList = document.getElementById("memberlist");
+
+            if (val === "") {
+                currentPage = 1;
+                founderList.innerHTML = "";
+                leaderList.innerHTML = "";
+                
+                const founders = allData.filter(p => p.permission === "founder");
+                const leaders = allData.filter(p => p.permission === "leader");
+                
+                founders.forEach(p => founderList.appendChild(createCard(p)));
+                leaders.forEach(p => leaderList.appendChild(createCard(p)));
+                displayMembers(allMembers);
+                
+                fSection.style.display = founders.length > 0 ? "block" : "none";
+                lSection.style.display = "block";
+                mSection.style.display = "block";
+                pagination.style.display = "flex";
+
+            } else {
+                pagination.style.display = "none";
+                founderList.innerHTML = "";
+                leaderList.innerHTML = "";
+                memberList.innerHTML = "";
+
+                const filtered = allData.filter(p => p.name.toLowerCase().includes(val));
+
+                filtered.forEach(p => {
+                    const card = createCard(p);
+                    if (p.permission === "founder") founderList.appendChild(card);
+                    else if (p.permission === "leader") leaderList.appendChild(card);
+                    else memberList.appendChild(card);
+                });
+
+                fSection.style.display = founderList.children.length > 0 ? "block" : "none";
+                lSection.style.display = leaderList.children.length > 0 ? "block" : "none";
+                mSection.style.display = memberList.children.length > 0 ? "block" : "none";
+                
+                if (filtered.length === 0) {
+                    mSection.style.display = "block";
+                    memberList.innerHTML = `<p style="opacity:0.5; width:100%; margin-top:20px;">ไม่พบรายชื่อที่ค้นหา...</p>`;
+                }
+            }
+        });
+
+        // ดึงข้อมูลจาก person.json (ที่อยู่โฟลเดอร์หลัก)
+        fetch("../person.json")
+            .then(res => res.json())
+            .then(data => {
+                allData = data;
+                const founderList = document.getElementById("founderlist");
+                const leaderList = document.getElementById("leaderlist");
+                const founders = data.filter(p => p.permission === "founder");
+                const leaders = data.filter(p => p.permission === "leader");
+                allMembers = data.filter(p => p.permission === "member"); 
+
+                founders.forEach(p => founderList.appendChild(createCard(p)));
+                leaders.forEach(p => leaderList.appendChild(createCard(p)));
+                displayMembers(allMembers);
+            })
+            .catch(err => console.error("Error loading JSON:", err));
     });
-
-    fetch("../person.json")
-      .then(res => res.json())
-      .then(data => {
-        allData = data;
-        
-        const founderList = document.getElementById("founderlist");
-        const leaderList = document.getElementById("leaderlist");
-
-        const founders = data.filter(p => p.permission === "founder");
-        const leaders = data.filter(p => p.permission === "leader");
-        allMembers = data.filter(p => p.permission === "member"); 
-
-        founders.forEach(p => founderList.appendChild(createCard(p)));
-        leaders.forEach(p => leaderList.appendChild(createCard(p)));
-        
-        displayMembers(allMembers);
-      })
-      .catch(err => console.error("Error loading JSON:", err));
   </script>
 </body>
 </html>
